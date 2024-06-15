@@ -1,0 +1,146 @@
+<div class="well well-light well-sm no-padding">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="widget-body-toolbar">
+				<div class="row">
+					<div class="col-xs-3" style="margin-top: 4px;">
+						<span class="font-md"><b>Propostas</b></span>
+					</div>
+					<div class="col-xs-9" style="display: flex; justify-content: flex-end;">
+						<input type="file" id="propostaAssinaturaFileInput" ng-files="$ctrl.addFile($files)"
+							class="hide">
+						<div class="margin-right-5">
+							<ul class="mini-pagination" style="margin: 0 !important; display:block;" uib-pagination
+								total-items="$ctrl.totalItems" ng-model="$ctrl.currentPage"
+								items-per-page="$ctrl.itemsPerPage" previous-text='&#9664' next-text="&#9654"
+								ng-change="$ctrl.change()" boundary-link-numbers="false" max-size="1"></ul>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								{{$ctrl.filter.status[0] || 'Tudo'}} &nbsp;<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" ng-click="$ctrl.search({})">Tudo</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Elaborada']})">Elaborada</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Emitida']})">Emitida</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Negociação']})">Negociação</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Concluída']})">Concluída</a>
+								</li>
+							</ul>
+						</div>
+						<span class="divider-dash">|</span>
+						<button ng-click="$ctrl.modal('PROPOSTA_FORM_MODAL')" type="button"
+							class="btn btn-sm btn-labeled btn-primary ">
+							<span class="btn-label">
+								<i class="fa fa-plus"></i>
+							</span>Adicionar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12">
+			<div class="table-responsive p-0">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th colspan="2" ng-click="$ctrl.order('contrato')" class="pointer">
+								<i class="fa fa-sort"></i> Contrato
+							</th>
+							<th>Patrimônio</th>
+							<th ng-click="$ctrl.order('dataElaboracao')" class="pointer">
+								<i class="fa fa-sort"></i> Elaboração
+							</th>
+							<th>Emissão</th>
+							<th>Entrega</th>
+							<th>Validade</th>
+							<th ng-click="$ctrl.order('dataAssinatura')" class="pointer"><i class="fa fa-sort"></i>
+								Assinatura</th>
+							<th ng-click="$ctrl.order('status')" class="pointer"><i class="fa fa-sort"></i> Situação
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="!$ctrl.data.length">
+							<td colspan="10" class="text-center text-bold">Nenhum proposta cadastrada.</td>
+						</tr>
+						<tr ng-repeat="item in $ctrl.data" ng-class="{
+                        warning: item.status == 'Incompleta',
+                        success: item.status == 'Elaborada',
+                        grey: item.status == 'Emitida',
+                        blue: item.status == 'Negociação',
+                        danger: item.status == 'Cancelada'
+                    }">
+							<td width="80">
+								<a href="" class="btn btn-success btn-xs"
+									ng-click="$ctrl.modal('PROPOSTA_FORM_MODAL', item)">
+									<i class="fa fa-search"></i>
+								</a>
+								<a href="" class="btn btn-default btn-xs"
+									ng-click="$ctrl.modal('PROPOSTA_TIMELINE_MODAL', item.id)">
+									<i class="fa fa-commenting-o"></i>
+								</a>
+							</td>
+							<td>
+								{{item.contrato}}
+								<span ng-show="item.revisao"> (R.
+									{{ item.revisao }})</span> - {{item.propostaTitulo.nome}}
+							</td>
+							<td>{{item.patrimonio.nome}}</td>
+							<td>{{item.dataElaboracao | date : 'dd/MM/yyyy'}}</td>
+							<td>
+								<a ng-show="item.dataEmissao" href="" class="btn btn-default btn-xs"
+									ng-click="$ctrl.imprimirProposta(item)">
+									<i class="fa fa-print"></i>
+									&nbsp; {{item.dataEmissao | date : 'dd/MM/yyyy'}}
+								</a>
+								<a ng-if="item.status == 'Elaborada'" href="" class="btn btn-primary btn-xs"
+									ng-click="$ctrl.emitirProposta(item)">Emitir</a>
+							</td>
+							<td>
+								<span ng-if="item.dataEntrega">{{item.dataEntrega | date :
+									'dd/MM/yyyy'}}</span>
+								<a ng-if="item.status == 'Emitida'" href="" class="btn btn-primary btn-xs"
+									ng-click="$ctrl.entregarProposta(item)">
+									Entregar
+								</a>
+							</td>
+							<td>{{item.dataValidade | date : 'dd/MM/yyyy'}}</td>
+							<td>
+								<a ng-show="item.dataAssinatura" class="btn btn-default btn-xs"
+									ng-click="$ctrl.imprimirPropostaAssinada(item)">
+									<i class="fa" ng-class="{'fa-upload': !item.arquivo, 'fa-print': item.arquivo}"></i>
+									&nbsp; {{item.dataAssinatura | date : 'dd/MM/yyyy'}}
+								</a>
+
+								<a ng-if="item.status == 'Negociação'" href="" class="btn btn-primary btn-xs"
+									ng-click="$ctrl.concluirProposta(item)">
+									Concluir
+								</a>
+							</td>
+							<td>{{item.status}}
+								<span ng-show="item.revisao">(R{{item.revisao}})</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<proposta-form-component on-update="$ctrl.load()"></proposta-form-component>
+<proposta-timeline-component></proposta-timeline-component>

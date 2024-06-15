@@ -1,0 +1,7 @@
+<ng-include ng-if="tipo == 'proposta' && empresa.modeloProposta" src="'app/modules/imprimir/proposta/proposta-'+empresa.modeloProposta+'.html'"></ng-include>
+<ng-include ng-if="tipo == 'reciboReceita'" src="'app/modules/imprimir/recibo/recibo-receita.html'"></ng-include>
+<script>
+    $(document).on("click", ".text-block", function () {
+        $(this).prepend("<br>");
+    });
+</script>

@@ -1,0 +1,249 @@
+<controller ng-controller="headerController">
+	<!-- #HEADER -->
+	<header id="header">
+		<div id="logo-group">
+
+			<!-- PLACE YOUR LOGO HERE -->
+			<span id="logo">
+				<img src="img/logo.png" alt="Flowforce">
+			</span>
+			<!-- END LOGO PLACEHOLDER -->
+		</div>
+
+		<!-- #TOGGLE LAYOUT BUTTONS -->
+		<!-- pulled right: nav area -->
+		<div class="pull-right">
+
+			<!-- collapse menu button -->
+			<div id="hide-menu" class="btn-header pull-right">
+				<span>
+					<a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu">
+						<i class="fa fa-reorder"></i>
+					</a>
+				</span>
+			</div>
+			<!-- end collapse menu -->
+
+			<!-- #MOBILE -->
+			<!-- Top menu profile link : this shows only when top menu is active -->
+			<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+
+				<li>
+
+					<span style="vertical-align: sub;">
+						<strong>{{user.nome}}</strong>
+					</span>
+
+				</li>
+				<li class="">
+					<a href="" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+						<img ng-src="/img/profile.jpg">
+					</a>
+					<ul class="dropdown-menu pull-right">
+						<!--<li>
+						<a href="#/minhaconta" class="padding-10">
+							<i class="fa fa-user"></i>
+							Minha Conta
+						</a>
+					</li>
+					<li class="divider"></li>-->
+						<li>
+							<a href="javascript:void(0);" class="padding-10" data-action="launchFullscreen">
+								<i class="fa fa-arrows-alt"></i>
+								Tela Cheia
+							</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="#/logout" class="padding-10">
+								<i class="fa fa-sign-out fa-lg"></i>
+								<strong>Sair</strong>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!-- end pulled right: nav area -->
+
+	</header>
+	<!-- END HEADER -->
+
+	<!-- #NAVIGATION -->
+	<!-- Left panel : Navigation area -->
+	<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+	<aside id="left-panel">
+
+		<!-- User info -->
+		<div class="login-info">
+			<span>
+				<!-- User image size is adjusted inside CSS, it should stay as it -->
+
+				<a href="#/">
+					<img src="img/avatars/male.png" alt="me" class="online" />
+					<span>{{user.nome}}</span>
+				</a>
+
+			</span>
+		</div>
+		<!-- end user info -->
+
+		<nav>
+			<ul>
+				<li ng-if="hasModule('Pessoas')">
+					<a href="#/">
+						<i class="fa fa-lg fa-fw fa-user"></i>
+						<span class="menu-item-parent">Pessoas</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Comercial')">
+					<a href="#/proposta">
+						<i class="fa fa-lg fa-fw fa-file-text"></i>
+						<span class="menu-item-parent">Comercial</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Projetos')">
+					<a href="#/projeto-lista">
+						<i class="fa fa-lg fa-fw fa-table"></i>
+						<span class="menu-item-parent">Projetos</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Repositório')">
+					<a href="#/repositorio">
+						<i class="fa fa-lg fa-fw fa-list-alt"></i>
+						<span class="menu-item-parent">Repositório</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Condicionantes')">
+					<a href="#/condicionante">
+						<i class="fa fa-lg fa-fw fa-book"></i>
+						<span class="menu-item-parent">Condicionantes</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Tarefas')">
+					<a href="#/tarefa">
+						<i class="fa fa-lg fa-fw fa-cog"></i>
+						<span class="menu-item-parent">Tarefas</span>
+					</a>
+				</li>
+				<li ng-if="hasModule('Financeiro')">
+					<a href="">
+						<i class="fa fa-lg fa-fw fa-usd"></i>
+						<span class="menu-item-parent">Financeiro</span>
+					</a>
+					<ul>
+						<li>
+							<a href="#/financeiro/receita">Receitas</a>
+						</li>
+						<li>
+							<a href="#/financeiro/despesa">Despesas</a>
+						</li>
+						<li>
+							<a href="#/financeiro/transferencia">Transferências</a>
+						</li>
+						<li>
+							<a href="#/financeiro/conta">Contas e Cofres</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="">
+						<i class="fa fa-lg fa-fw fa-thumb-tack"></i>
+						<span class="menu-item-parent">Manutenção</span>
+					</a>
+					<ul>
+						<li ng-if="hasModule('Usuários')">
+							<a href="#/usuario">Usuários</a>
+						</li>
+						<li ng-if="hasModule('Empresa')">
+							<a href="" ng-click="modalHeader('EMPRESA_FORM_MODAL')">Empresa</a>
+						</li>
+						<li ng-if="hasModule('Financeiro')">
+							<a href="">
+								<span class="menu-item-parent">Financeiro</span>
+							</a>
+							<ul>
+								<li>
+									<a href="#/financeiro/forma-pagamento">Formas de Pagamento</a>
+								</li>
+								<li>
+									<a href="#/financeiro/plano-conta">Plano de Contas</a>
+								</li>
+							</ul>
+						</li>
+						<li ng-if="hasModule('Comercial')">
+							<a href="">
+								<span class="menu-item-parent">Propostas</span>
+							</a>
+							<ul>
+								<li>
+									<a href="#/proposta-modelo">Modelos</a>
+								</li>
+								<li>
+									<a href="#/proposta-titulo">Títulos</a>
+								</li>
+								<li>
+									<a href="#/proposta-objetivo">Objetivos</a>
+								</li>
+								<li>
+									<a href="#/proposta-etapa">Etapas</a>
+								</li>
+								<li>
+									<a href="#/proposta-custo">Custos</a>
+								</li>
+								<li>
+									<a href="#/proposta-documento">Documentos</a>
+								</li>
+								<li>
+									<a href="#/proposta-clausula-contratante">Cláusulas do Contratante</a>
+								</li>
+								<li>
+									<a href="#/proposta-clausula-contratado">Cláusulas do Contratado</a>
+								</li>
+								<li>
+									<a href="#/proposta-forma-cobranca">Formas de Cobrança</a>
+								</li>
+							</ul>
+						</li>
+						<li ng-if="hasModule('Projetos')">
+							<a href="">
+								<span class="menu-item-parent">Projetos</span>
+							</a>
+							<ul>
+								<li>
+									<a href="#/projeto-instituicao">Instituições</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li ng-if="hasModule('Relatórios')">
+					<a href="">
+						<i class="fa fa-lg fa-fw fa-clipboard"></i>
+						<span class="menu-item-parent">Relatórios</span>
+					</a>
+					<ul>
+						<li>
+							<a href="" ng-click="modalHeader('RELATORIO_MODAL')">Em Tela</a>
+						</li>
+						<li>
+							<a href="" ng-click="modalHeader('RELATORIO_XLSX_MODAL')">Em Excel </a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+
+		<span class="minifyme" data-action="minifyMenu">
+			<i class="fa fa-arrow-circle-left hit"></i>
+		</span>
+
+	</aside>
+	<!-- END NAVIGATION -->
+	<estorno-component></estorno-component>
+	<relatorio-component></relatorio-component>
+	<relatorio-xlsx-component></relatorio-xlsx-component>
+	<empresa-plano-form-component></empresa-plano-form-component>
+	<empresa-form-component></empresa-form-component>
+	<!-- <ng-include src="'app/views/modal/projetoCalculadora.html'"></ng-include> -->
+</controller>

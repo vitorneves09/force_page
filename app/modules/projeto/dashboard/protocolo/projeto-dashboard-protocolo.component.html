@@ -1,0 +1,97 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>Protocolos</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-12">
+                <div class="table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Instituição</th>
+                                <th>Identificação</th>
+                                <th>Prazo</th>
+                                <th>Retorno Acompanhamento</th>
+                                <th width="150">Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody ng-if="!$ctrl.data.length">
+                            <tr>
+                                <td colspan="10" class="text-center text-bold">Nenhum protocolo cadastrado.</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody ng-repeat="item in $ctrl.data">
+                            <tr
+                                ng-class="{'warning': item.status == 'Acompanhamento','danger': item.status == 'Pendência'}">
+                                <td width="30">
+                                    <div class="btn-group dropup">
+                                        <button type="button" class="btn btn-xs btn-default dropdown-toggle"
+                                            data-toggle="dropdown">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);"
+                                                    ng-click="$ctrl.modal('PROJETO_PROTOCOLO_FORM_MODAL', item)"><i
+                                                        class="fa fa-pencil margin-right-5"></i> Dados do Protocolo</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);"
+                                                    ng-click="$ctrl.modal('PROTOCOLO_ACOMPANHAMENTO_MODAL', item)"><i
+                                                        class="fa fa-commenting-o margin-right-5"></i>
+                                                    Acompanhamento</a>
+                                            </li>
+                                            <li ng-if="item.status != 'Concluído'" class="divider"></li>
+                                            <li>
+                                                <a href="javascript:void(0);"
+                                                    ng-click="$ctrl.modal('PENDENCIA_FORM_MODAL', item)"><i
+                                                        class="fa fa-exclamation-triangle margin-right-5"></i>
+                                                    Adicionar Pendência</a>
+                                            </li>
+                                            <li ng-if="item.status != 'Concluído'" class="divider">
+                                            </li>
+                                            <li ng-if="item.status != 'Concluído'">
+                                                <a href="javascript:void(0);"
+                                                    ng-click="$ctrl.modal('PROTOCOLO_CONCLUIR_MODAL', item)"><i
+                                                        class="fa fa-check margin-right-5"></i> Concluir
+                                                    Protocolo</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>{{item.projetoInstituicao.nome}}</td>
+                                <td>{{item.identificador}}</td>
+                                <td>{{item.dataPrazo | date:"dd/MM/yyyy" }}</td>
+                                <td>{{item.dataRetorno | date:"dd/MM/yyyy"}}</td>
+                                <td>{{item.status}}</td>
+                            </tr>
+                            <tr ng-repeat="pendencia in item.projetoProtocoloPendencias"
+                                ng-class="{'info': pendencia.status == 'Andamento'}">
+                                <td width="30"></td>
+                                <td colspan="2"><i>Pendência: </i> <b>{{pendencia.identificador}}</b> -<i>
+                                        {{pendencia.dataEntrada | date:"dd/MM/yyyy" }}</i></td>
+                                <td>{{pendencia.dataProtocolo ? 'Protocolado: ' : 'Prazo: '}} {{(pendencia.dataProtocolo || pendencia.dataPrazo) | date:"dd/MM/yyyy"}}</td>
+                                <td><span ng-if="pendencia.protocolo">Protocolo: {{pendencia.protocolo}}</span></td>
+                                <td>{{pendencia.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<projeto-pendencia-form-component on-update="$ctrl.load(reload)"></projeto-pendencia-form-component>
+<projeto-protocolo-form-component on-update="$ctrl.load(reload)"></projeto-protocolo-form-component>
+<protocolo-acompanhamento-component on-update="$ctrl.load()"></protocolo-acompanhamento-component>
+<protocolo-concluir-form-component on-update="$ctrl.load(reload)"></protocolo-concluir-form-component>

@@ -1,0 +1,97 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalProjetoPendenciaForm">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Pendência</strong>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="label">Identificação</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-list"></i>
+                                    <input type="text" ng-model="$ctrl.data.identificador" required>
+                                </label>
+                            </section>
+                            <section class="col col-3">
+                                <label class="label">Data de Entrada</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-calendar"></i>
+                                    <input type="text" ng-model="$ctrl.data.dataEntrada" ui-date-mask format-date
+                                        required>
+                                </label>
+                            </section>
+                            <section class="col col-3">
+                                <label class="label">Prazo em Dias</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-calendar"></i>
+                                    <input type="int" min="1" ng-model="$ctrl.data.prazo" required>
+                                </label>
+                            </section>
+                        </div>
+                        <section>
+                            <label class="label">Documento da Pendência</label>
+                            <div class="input input-file">
+                                <input type="file" id="doc" name="doc" ng-files="$ctrl.addFile($files)">
+                            </div>
+                        </section>
+                    </fieldset>
+                    <fieldset class="no-padding">
+						<div class="table-responsive">
+							<table class="table table-hover margin-bottom-0">
+								<thead>
+									<tr>
+										<th colspan="2">Etapa</th>
+										<th>Responsável</th>
+                                        <th>Prazo</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in $ctrl.data.etapas">
+										<td width="20">
+											<a href="" class="btn btn-danger btn-sm" ng-click="$ctrl.removerEtapa($index)">
+												<i class="fa fa-remove"></i>
+											</a>
+										</td>
+										<td style="line-height: 30px;">
+											<label class="input">
+												<input type="text" ng-model="item.nome" required>
+											</label>
+										</td>
+										<td tyle="line-height: 30px;" width="300">
+											<label class="select">
+                                                <select selector model="item.usuarioId" options="$ctrl.usuariosList" label-attr="nome" value-attr="id"
+                                                    placeholder="Selecione..."></select>
+                                            </label>
+										</td>
+										<td style="line-height: 30px;" width="100">
+											<label class="input">
+												<input type="text" ng-model="item.prazo" required>
+											</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+                    <footer>
+                        <button type="button" class="btn btn-success pull-left" ng-click="$ctrl.adicionarEtapa()">Adicionar Execução</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button ng-if="$ctrl.data.status != 'Concluído'" type="submit" class="btn btn-primary"
+                            ng-disabled="form.$invalid">Salvar</button>
+                    </footer>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

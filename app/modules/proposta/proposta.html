@@ -1,0 +1,169 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Propostas Comerciais</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<!-- row -->
+		<form ng-submit="search()">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<div class="jarviswidget-ctrls" style="height: 33px !important;">
+								<button type="submit" class="btn btn-default btn-sm">
+									<i class="fa fa-search"></i> Buscar
+								</button>
+								<button type="button" class="btn btn-default btn-sm" ng-click="search(true)">
+									<i class="fa fa-eraser"></i>
+								</button> &nbsp;
+							</div>
+							<h2>Busca Personalizada</h2>
+						</header>
+						<!-- widget div-->
+						<div>
+							<div class="widget-body">
+								<fieldset>
+									<div class="row">
+										<section class="col col-md-6">
+											<label>Contrato</label>
+											<input class="form-control" type="text" ng-model="filter.contrato">
+										</section>
+										<section class="col col-md-6">
+											<label>Situação</label>
+											<select selector model="filter.status" options="statusList" multi="true"
+												placeholder="Todas"></select>
+										</section>
+									</div>
+								</fieldset>
+								<!-- end content -->
+							</div>
+						</div>
+						<!-- end widget div -->
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="well well-light well-sm no-padding">
+			<input type="file" id="propostaAssinaturaFileInput" ng-files="addFile($files)" class="hide">
+			<div class="row">
+
+				<div class="col-sm-12">
+					<div class="widget-body-toolbar">
+						<div class="row">
+							<div class="col-xs-12" style="margin-top: 4px;">
+								<span class="font-md"><b>Propostas Comerciais</b></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="table-responsive">
+
+						<table class="table table-hover margin-bottom-0">
+							<thead>
+								<tr>
+									<th colspan="2" ng-click="order('contrato')" class="pointer">
+										<i class="fa fa-sort"></i> Contrato
+									</th>
+									<th>Cliente</th>
+									<th>Patrimônio</th>
+									<th ng-click="order('dataElaboracao')" class="pointer"><i class="fa fa-sort"></i>
+										Elaboração</th>
+									<th>Emissão</th>
+									<th>Entrega</th>
+									<th ng-click="order('dataValidade')" class="pointer">
+										<i class="fa fa-sort"></i> Validade
+									</th>
+									<th ng-click="order('dataAssinatura')" class="pointer"><i class="fa fa-sort"></i>
+										Assinatura</th>
+									<th ng-click="order('status')" class="pointer">
+										<i class="fa fa-sort"></i> Situação
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!data.length">
+									<td colspan="11" class="text-center text-bold">Nenhuma proposta cadastrada.</td>
+								</tr>
+								<tr ng-repeat="item in data" ng-class="{
+												warning: item.status == 'Incompleta',
+												success: item.status == 'Elaborada',
+												grey: item.status == 'Emitida',
+												blue: item.status == 'Negociação',
+												danger: item.status == 'Cancelada'
+											}">
+									<td width="80">
+										<a href="" class="btn btn-success btn-xs"
+											ng-click="modal('PROPOSTA_FORM_MODAL', item)">
+											<i class="fa fa-search"></i>
+										</a>
+										<a href="" class="btn btn-default btn-xs"
+											ng-click="modal('PROPOSTA_TIMELINE_MODAL', item.id)">
+											<i class="fa fa-commenting-o"></i>
+										</a>
+									</td>
+									<td>
+										{{item.contrato}}
+										<span ng-show="item.revisao"> (R.
+											{{ item.revisao }})</span> - {{item.propostaTitulo.nome}}
+									</td>
+									<td>{{item.cliente.nome}}</td>
+									<td>{{item.patrimonio.nome}}</td>
+									<td>{{item.dataElaboracao | date : 'dd/MM/yyyy'}}</td>
+									<td>
+										<a ng-show="item.dataEmissao" href="" class="btn btn-default btn-xs"
+											ng-click="imprimirProposta(item)">
+											<i class="fa fa-print"></i>
+											&nbsp; {{item.dataEmissao | date : 'dd/MM/yyyy'}}
+										</a>
+										<a ng-if="item.status == 'Elaborada'" href="" class="btn btn-primary btn-xs"
+											ng-click="emitirProposta(item)">Emitir</a>
+									</td>
+									<td>
+										<span ng-if="item.dataEntrega">{{item.dataEntrega | date :
+											'dd/MM/yyyy'}}</span>
+										<a ng-if="item.status == 'Emitida'" href="" class="btn btn-primary btn-xs"
+											ng-click="entregarProposta(item)">
+											Entregar
+										</a>
+									</td>
+									<td>{{item.dataValidade | date : 'dd/MM/yyyy'}}</td>
+									<td>
+										<a ng-show="item.dataAssinatura" class="btn btn-default btn-xs"
+											ng-click="imprimirPropostaAssinada(item)">
+											<i class="fa"
+												ng-class="{'fa-upload': !item.arquivo, 'fa-print': item.arquivo}"></i>
+											&nbsp; {{item.dataAssinatura | date : 'dd/MM/yyyy'}}
+										</a>
+
+										<a ng-if="item.status == 'Negociação'" href="" class="btn btn-primary btn-xs"
+											ng-click="concluirProposta(item)">
+											Concluir
+										</a>
+									</td>
+									<td>{{item.status}}
+										<span ng-show="item.revisao">(R{{item.revisao}})</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<paginacao-component on-update='load(options)' order="['contrato','DESC']">
+							</paginacao-component>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<proposta-form-component on-update="search()"></proposta-form-component>
+<proposta-timeline-component></proposta-timeline-component>
+<ng-include src="'app/layout/footer.html'"></ng-include>

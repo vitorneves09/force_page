@@ -1,0 +1,145 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Condicionantes</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<!-- row -->
+		<form ng-submit="search()">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<div class="jarviswidget-ctrls" style="height: 33px !important;">
+								<button type="submit" class="btn btn-default btn-sm">
+									<i class="fa fa-search"></i> Buscar
+								</button>
+								<button type="button" class="btn btn-default btn-sm" ng-click="search(true)">
+									<i class="fa fa-eraser"></i>
+								</button> &nbsp;
+							</div>
+							<h2>Busca Personalizada</h2>
+						</header>
+						<!-- widget div-->
+						<div>
+							<div class="widget-body">
+								<fieldset>
+									<div class="row">
+										<section class="col col-md-6">
+											<label>Nome</label>
+											<input class="form-control" type="text" ng-model="filter.nome">
+										</section>
+										<section class="col col-md-6">
+											<label>Situação</label>
+											<select selector model="filter.status" options="statusList"
+												multi="true" placeholder="Todas"></select>
+										</section>
+									</div>
+								</fieldset>
+								<!-- end content -->
+							</div>
+						</div>
+						<!-- end widget div -->
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="well well-light well-sm no-padding">
+			<div class="row">
+
+				<div class="col-sm-12">
+					<div class="widget-body-toolbar">
+						<div class="row">
+							<div class="col-xs-12" style="margin-top: 4px;">
+								<span class="font-md"><b>Condicionantes</b></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="table-responsive">
+
+						<table class="table table-hover margin-bottom-0">
+							<thead>
+								<tr>
+									<th colspan="2">
+										Projeto
+									</th>
+									<th>Cliente</th>
+									<th>Nome</th>
+									<th>Modo</th>
+									<th>Intervalo</th>
+									<th ng-click="order('dataVencimento')" class="pointer"><i class="fa fa-sort"></i>
+										Vencimento</th>
+									<th>Situação</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!data.length">
+									<td colspan="11" class="text-center text-bold">Nenhum registro encontrado.</td>
+								</tr>
+								<tr ng-repeat="item in data"
+									ng-class="{danger : item.dataVencimento < hoje && item.status != 'Concluído'}">
+									<td width="30">
+
+										<div class="btn-group">
+											<button type="button" class="btn btn-xs btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												<i class="fa fa-bars"></i>
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a href="javascript:void(0);"
+														ng-click="modal('PROJETO_CONDICIONANTE_FORM_MODAL', item)"><i
+															class="fa fa-pencil margin-right-5"></i> Dados da
+														Condicionante</a>
+												</li>
+												<li>
+													<a href="javascript:void(0);"
+														ng-click="modal('CONDICIONANTE_DOCUMENTO_MODAL', item)"><i
+															class="fa fa-archive margin-right-5"></i>
+														Documentos da Condicionante</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a href="javascript:void(0);" ng-click="visualizarProjeto(item)"><i
+															class="fa fa-table margin-right-5"></i>
+														Visualizar Projeto</a>
+												</li>
+											</ul>
+										</div>
+
+
+									</td>
+									<td>
+										{{item.projeto.contrato}} - {{item.projeto.titulo}}
+									</td>
+									<td>{{item.cliente.nome}}</td>
+									<td>{{item.nome}}</td>
+									<td>{{item.modo}}</td>
+									<td>{{item.intervalo}} {{item.intervaloModo}}</td>
+									<td>{{item.dataVencimento | date : 'dd/MM/yyyy'}}</td>
+									<td>{{item.status}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<paginacao-component on-update='load(options)' order="['dataVencimento','ASC']" filter="filter">
+							</paginacao-component>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>
+
+<projeto-condicionante-form-component on-update="load()"></projeto-condicionante-form-component>
+<projeto-condicionante-documento-component></projeto-condicionante-documento-component>

@@ -1,0 +1,140 @@
+<fieldset>
+	<div class="row">
+		<section class="col col-md-4">
+			<label class="label">Grupo da Receita</label>
+			<label class="select">
+				<select ng-model="$ctrl.data.financeiro.agrupamentoId2" ng-change="$ctrl.setAgrupamento(2)"
+					ng-required="$ctrl.data.financeiro.valor">
+					<option value="">Selecione um grupo...</option>
+					<option
+						ng-repeat="grupo in $ctrl.agrupamentosList[0] | agrupamento : ($ctrl.data.id && $ctrl.data.status != 'Incompleta')"
+						ng-value="{{grupo.id}}">{{grupo.nome}}</option>
+				</select>
+				<i></i>
+			</label>
+		</section>
+		<section class="col col-md-4" ng-if="$ctrl.agrupamentosList[1].length">
+			<label class="label">&nbsp;</label>
+			<label class="select">
+				<select ng-model="$ctrl.data.financeiro.agrupamentoId3" ng-change="$ctrl.setAgrupamento(3)"
+					ng-required="$ctrl.data.financeiro.valor">
+					<option value="">Selecione um grupo...</option>
+					<option
+						ng-repeat="grupo in $ctrl.agrupamentosList[1] | agrupamento : ($ctrl.data.id && $ctrl.data.status != 'Incompleta')"
+						ng-value="{{grupo.id}}">{{grupo.nome}}</option>
+				</select>
+				<i></i>
+			</label>
+		</section>
+		<section class="col col-md-4" ng-if="$ctrl.agrupamentosList[2].length">
+			<label class="label">&nbsp;</label>
+			<label class="select">
+				<select ng-model="$ctrl.data.financeiro.agrupamentoId4" ng-required="$ctrl.data.financeiro.valor">
+					<option value="">Selecione um grupo...</option>
+					<option
+						ng-repeat="grupo in $ctrl.agrupamentosList[2] | agrupamento : ($ctrl.data.id && $ctrl.data.status != 'Incompleta')"
+						ng-value="{{grupo.id}}">{{grupo.nome}}</option>
+				</select>
+				<i></i>
+			</label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col col-4">
+			<label class="label">Valor da Proposta</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-dollar"></i>
+				<input type="text" ng-change="$ctrl.makeParcelas()" ng-model="$ctrl.data.financeiro.valor"
+					ui-money-mask>
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label">N° de Parcelas</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-list"></i>
+				<input type="number" ng-change="$ctrl.makeParcelas()" ng-model="$ctrl.data.financeiro.parcelas"
+					ng-required="$ctrl.data.financeiro.valor">
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label">Data Inicial das Parcelas</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-calendar"></i>
+				<input type="text" ng-change="$ctrl.makeDatas()" ng-model="$ctrl.data.financeiro.dataEntrada"
+					ui-date-mask format-date ng-required="$ctrl.data.financeiro.valor">
+			</label>
+		</section>
+	</div>
+	<section ng-show="$ctrl.data.financeiro.valor">
+		<div class="table">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="40">N°.</th>
+						<th width="80">Porcentagem</th>
+						<th width="180">Valor da Parcela</th>
+						<th width="180">Data da Parcela</th>
+						<th>Forma de Cobrança</th>
+						<th>Forma de Pagamento</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="parcela in $ctrl.data.financeiro.parcela">
+						<td style="text-align: center; vertical-align: middle;">
+							{{parcela.numero}}
+						</td>
+						<td>
+							<label class="input">
+								<input type="text" ng-model="parcela.porcentagem" ui-percentage-mask="0"
+									ng-change="$ctrl.remakeParcelas('p', $index)">
+							</label>
+						</td>
+						<td>
+							<label class="input">
+								<input type="text" ng-model="parcela.valor" ui-money-mask
+									ng-change="$ctrl.remakeParcelas('v', $index)">
+							</label>
+						</td>
+						<td>
+							<label class="input">
+								<input type="text" ng-model="parcela.data" ui-date-mask format-date
+									ng-class="{'hide':parcela.propostaFormaCobrancaId == 1}"
+									ng-required="parcela.propostaFormaCobrancaId != 1">
+							</label>
+						</td>
+						<td>
+							<label class="select">
+								<select ng-model="parcela.propostaFormaCobrancaId" required>
+									<option ng-value="null">Selecione...</option>
+									<option ng-repeat="formaCobranca in $ctrl.formaCobrancaList"
+										ng-value="formaCobranca.id">{{formaCobranca.nome}}</option>
+								</select>
+								<i></i>
+							</label>
+						</td>
+						<td>
+							<label class="select">
+								<select ng-model="parcela.financeiroFormaPagamentoId" required>
+									<option ng-value="null">Selecione...</option>
+									<option ng-repeat="formaPagamento in $ctrl.formaPagamentoList"
+										ng-value="formaPagamento.id">{{formaPagamento.nome}}</option>
+								</select>
+								<i></i>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><strong show-total itens="$ctrl.data.financeiro.parcela" tipo="porcentagem"></strong>
+						</td>
+						<td><strong show-total itens="$ctrl.data.financeiro.parcela" tipo="total"></strong>
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</fieldset>

@@ -1,0 +1,53 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>Documentos</b></span>
+                    </div>
+                    <div class="col-xs-8 text-align-right" ng-if="$ctrl.projeto.status != 'Concluído'">
+                        <input type="file" id="projetoDashboardDocumentoFileInput" ng-files="$ctrl.addFile($files)"
+                            class="hide">
+                        <button type="button" class="btn btn-default" ng-click="$ctrl.openFileInput()">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Nome</th>
+                            <th>Enviado</th>
+                            <th width="120">Origem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td colspan="10" class="text-center text-bold">Nenhum documento cadastrado.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data">
+                            <td width="{{$ctrl.projeto.status != 'Concluído' ? '70' : '30'}}">
+                                <a ng-href="{{$ctrl.fileUrl+$ctrl.projeto.clienteId+'/projetos/'+$ctrl.projeto.id+'/documentos/'+item.arquivo}}"
+                                    target="_blank" class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a ng-if="$ctrl.projeto.status != 'Concluído'" href="" class="btn btn-xs btn-danger"
+                                    ng-click="$ctrl.removeFile(item)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                            <td>{{item.nome}}</td>
+                            <td>{{item.usuario.nome}}</td>
+                            <td>{{item.origem}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

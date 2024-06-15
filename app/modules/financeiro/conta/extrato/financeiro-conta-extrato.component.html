@@ -1,0 +1,104 @@
+<!-- Modal -->
+<div class="modal fade" id="modalFinanceiroContaExtrato">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-body modal-overflow no-padding">
+                <form ng-submit="$ctrl.filtrar()">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="jarviswidget jarviswidget-color-blueDark no-margin">
+                                <header>
+                                    <div class="jarviswidget-ctrls" style="height: 33px !important;">
+                                        <button type="submit" class="btn btn-default btn-sm">
+                                            <i class="fa fa-search"></i> Buscar
+                                        </button> &nbsp;
+                                    </div>
+                                    <h2>Extrato de Conta & Cofre</h2>
+                                </header>
+                                <div>
+                                    <div class="widget-body">
+                                        <fieldset>
+                                            <div class="row">
+                                                <section class="col-md-5">
+                                                    <label>Conta</label>
+                                                    <select selector model="$ctrl.filter.contaId"
+                                                        options="$ctrl.contasList" value-attr="id"
+                                                        label-attr="nome"></select>
+                                                </section>
+                                                <section class="col-md-7">
+                                                    <label>Data</label>
+                                                    <input date-range-picker options="$ctrl.dateOptions"
+                                                        clearable="true" class="form-control" type="text"
+                                                        ng-model="$ctrl.filter.data" readonly>
+                                                </section>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Data</th>
+                                <th>Origem</th>
+                                <th>Forma</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="!$ctrl.data.extrato.length">
+                                <td class="text-center" colspan="5">Nenhum registro encontrado.</td>
+                            </tr>
+                            <tr ng-repeat="transacao in $ctrl.data.extrato" class="bg-white">
+                                <td>{{transacao.financeiroDespesaId || transacao.financeiroReceitaId ||
+                                    transacao.financeiroTransferenciaId}}</td>
+                                <td>{{transacao.data | date : 'dd/MM/yyyy'}}
+                                </td>
+                                <td>
+                                    <span
+                                        ng-if="transacao.financeiroTransferenciaId">Conta: {{transacao.financeiroTransferencia.financeiroContaOrigemId
+                                        == transacao.financeiroContaId ?
+                                        transacao.financeiroTransferencia.financeiroContaDestino.nome
+                                        :transacao.financeiroTransferencia.financeiroContaOrigem.nome }}</span>
+
+                                    <span ng-if="transacao.financeiroDespesaId || transacao.financeiroReceitaId">
+                                        <span ng-if="transacao.contrato">{{transacao.contrato}} -
+                                        </span>{{transacao.cliente.nome}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span ng-if="transacao.financeiroDespesaId || transacao.financeiroReceitaId">
+                                        {{transacao.financeiroFormaPagamento.nome}}
+                                    </span>
+                                    <span ng-if="transacao.financeiroTransferenciaId">
+                                        Transferência
+                                    </span>
+                                </td>
+                                <td
+                                    ng-class="{'text-danger': (transacao.financeiroDespesaId || transacao.financeiroTransferencia.financeiroContaOrigemId == transacao.financeiroContaId), 'text-success': (transacao.financeiroReceitaId || transacao.financeiroTransferencia.financeiroContaDestinoId == transacao.financeiroContaId)}">
+                                    <strong>{{(transacao.financeiroReceitaId || transacao.financeiroTransferencia.financeiroContaDestinoId
+                                        == transacao.financeiroContaId ? transacao.valor : (transacao.valor * -1))
+                                        | currency : ''}}</strong>
+                                </td>
+                            </tr>
+                            <tr ng-if="$ctrl.data.extrato.length" class="font-md warning">
+                                <td colspan="4">
+                                    <b>SALDO ATUAL</b>
+                                </td>
+                                <td
+                                    ng-class="{'text-danger': $ctrl.data.conta.saldo < 0, 'text-success': $ctrl.data.conta.saldo > 0}">
+                                    <b>{{$ctrl.data.conta.saldo | currency : ''}}</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

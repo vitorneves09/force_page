@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html data-ng-app="admin" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>Flowforce</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Language" content="pt-br">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- #CSS Links -->
+    <!-- Basic Styles -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+
+    <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+
+    <!-- SmartAdmin RTL Support -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/angular-selector.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/angular-busy.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/quill.snow.css">
+
+    <!-- #FAVICONS -->
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="css/font-custom.css">
+
+    <!-- #APP SCREEN / ICONS -->
+    <link rel="apple-touch-icon" href="img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png"
+        media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png"
+        media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+</head>
+
+<body class="menu-on-top fixed-navigation fixed-header">
+    <!-- MAIN PANEL -->
+    <div data-ng-view></div>
+    <!-- END MAIN PANEL -->
+
+    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+    <script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
+
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="js/libs/jquery-2.1.1.min.js"></script>
+    <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
+
+    <!-- IMPORTANT: APP CONFIG -->
+    <script src="js/app.config.js"></script>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- CUSTOM NOTIFICATION -->
+    <script src="js/notification/SmartNotification.min.js"></script>
+
+    <!-- JQUERY UI + Bootstrap Slider -->
+    <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+    <!-- browser msie issue fix -->
+    <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+    <!-- FastClick: For mobile devices -->
+    <!-- <script src="js/plugin/fastclick/fastclick.min.js"></script> -->
+
+    <!--[if IE 8]>
+        
+        <h1>
+            Seu navegador esta desatualizado, atualize em www.microsoft.com/download ou utlize outro navegador. Ex: Chrome, Firefox, Opera, etc.
+        </h1>
+        
+        <![endif]-->
+
+    <!-- MAIN APP JS FILE -->
+    <script src="js/app.min.js"></script>
+    <script src="js/demo.min.js"></script>
+
+    <!-- APP ANGULAR -->
+    <script type="text/javascript" src="app/plugins/angular/_angular.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular/_angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular/_angular-route.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular/_angular-animate.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular/_angular-locale_pt-br.js"></script>
+
+    <script type="text/javascript" src="app/plugins/angular-input-masks-standalone.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-br-filters.min.js"></script>
+    <script type="text/javascript" src="app/plugins/dirPagination.js"></script>
+    <script type="text/javascript" src="app/plugins/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="app/plugins/moment-timezone.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-moment.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-selector.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-slugify.js"></script>
+    <script type="text/javascript" src="app/plugins/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="app/plugins/daterangepicker.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-daterangepicker.min.js"></script>
+    <script type="text/javascript" src="app/plugins/ui-bootstrap-2.5.0.min.js"></script>
+    <script type="text/javascript" src="app/plugins/angular-busy.min.js"></script>
+
+    <script type="text/javascript" src="app/plugins/quill.min.js"></script>
+    <script type="text/javascript" src="app/plugins/ng-quill.min.js"></script>
+
+    <script type="text/javascript" src="app/main.js"></script>
+    <script type="text/javascript" src="config/config.js"></script>
+    <script type="text/javascript" src="app/router.js"></script>
+    <script type="text/javascript" src="app/filters.js"></script>
+    <script type="text/javascript" src="app/services.js"></script>
+    <script type="text/javascript" src="app/directives.js"></script>
+    <script type="text/javascript" src="app/services/messageServices.js"></script>
+    <script type="text/javascript" src="app/services/configServices.js"></script>
+    <script type="text/javascript" src="app/services/calculoServices.js"></script>
+
+    <script type="text/javascript" src="app/layout/header.js"></script>
+    <script type="text/javascript" src="app/modules/auth/login.js"></script>
+
+    <!-- MODULES CLIENTE -->
+    <script type="text/javascript" src="app/modules/cliente/search/cliente-search.js"></script>
+    <script type="text/javascript" src="app/modules/cliente/dashboard/cliente-dashboard.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/documento/cliente-dashboard-documento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/info/cliente-dashboard-info.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/patrimonio/cliente-dashboard-patrimonio.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/proposta/cliente-dashboard-proposta.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/projeto/cliente-dashboard-projeto.component.js"></script>
+    <script type="text/javascript" src="app/modules/cliente/components/cliente-form/cliente-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/components/cliente-patrimonio-form/cliente-patrimonio-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/components/cliente-patrimonio-upload-form/cliente-patrimonio-upload-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/financeiro/receita/cliente-dashboard-financeiro-receita.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/cliente/dashboard/financeiro/despesa/cliente-dashboard-financeiro-despesa.component.js"></script>
+
+
+    <!-- MODULES PROPOSTA -->
+    <script type="text/javascript" src="app/modules/proposta/proposta.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/form/proposta-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/form/tabs/geral/proposta-tab-geral.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/form/tabs/financeiro/proposta-tab-financeiro.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/form/tabs/custo/proposta-tab-custo.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/form/tabs/etapa/proposta-tab-etapa.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/form/tabs/contratado/proposta-tab-contratado.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/form/tabs/contratante/proposta-tab-contratante.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/form/tabs/documento/proposta-tab-documento.component.js"></script>
+
+    <script type="text/javascript" src="app/modules/proposta/modelo/proposta-modelo.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/modelo/form/proposta-modelo-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/titulo/proposta-titulo.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/titulo/form/proposta-titulo-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/objetivo/proposta-objetivo.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/objetivo/form/proposta-objetivo-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/etapa/proposta-etapa.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/etapa/form/proposta-etapa-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/custo/proposta-custo.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/custo/form/proposta-custo-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/documento/proposta-documento.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/documento/form/proposta-documento-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/clausula-contratante/proposta-clausula-contratante.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/clausula-contratante/form/proposta-clausula-contratante-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/clausula-contratado/proposta-clausula-contratado.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/clausula-contratado/form/proposta-clausula-contratado-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/forma-cobranca/proposta-forma-cobranca.js"></script>
+    <script type="text/javascript"
+        src="app/modules/proposta/forma-cobranca/form/proposta-forma-cobranca-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/proposta/timeline/proposta-timeline.component.js"></script>
+
+    <!-- MODULES PROJETO -->
+    <script type="text/javascript" src="app/modules/projeto/projeto-lista.js"></script>
+    <script type="text/javascript" src="app/modules/projeto/projeto-grade.js"></script>
+    <script type="text/javascript" src="app/modules/projeto/instituicao/projeto-instituicao.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/instituicao/form/projeto-instituicao-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/projeto/dashboard/projeto-dashboard.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/info/projeto-dashboard-info.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/planejamento/projeto-dashboard-planejamento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/planejamento/form/projeto-planejamento-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/condicionante/projeto-dashboard-condicionante.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/condicionante/form/projeto-condicionante-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/execucao/projeto-dashboard-execucao.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/execucao/form/projeto-execucao-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/montagem/projeto-dashboard-montagem.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/montagem/form/projeto-montagem-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/documento/projeto-dashboard-documento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/protocolo/projeto-dashboard-protocolo.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/protocolo/form/projeto-protocolo-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/protocolo/acompanhamento/protocolo-acompanhamento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/protocolo/concluir/protocolo-concluir.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/montagem/protocolar/projeto-montagem-protocolar.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/montagem/protocolar-pendencia/projeto-montagem-protocolar-pendencia.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/montagem/documento/projeto-montagen-documento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/execucao/documento/projeto-execucao-documento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/condicionante/documento/projeto-condicionante-documento.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/projeto/dashboard/pendencia/form/projeto-pendencia-form.component.js"></script>
+
+    <!-- MODULES REPOSITÓRIO -->
+    <script type="text/javascript" src="app/modules/repositorio/repositorio.js"></script>
+
+    <!-- MODULES CONDICIONANTE -->
+    <script type="text/javascript" src="app/modules/condicionante/condicionante.js"></script>
+
+    <!-- MODULES FINANCEIRO -->
+    <!-- MODULES FINANCEIRO DESPESA -->
+    <script type="text/javascript" src="app/modules/financeiro/despesa/financeiro-despesa.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/despesa/titulo/financeiro-despesa-titulo-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/despesa/pagar/financeiro-despesa-pagar-form.component.js"></script>
+
+    <!-- MODULES FINANCEIRO RECEITA -->
+    <script type="text/javascript" src="app/modules/financeiro/receita/financeiro-receita.js"></script>
+    <script type="text/javascript" src="app/modules/financeiro/receita/recibo/financeiro-receita-recibo.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/receita/receber/financeiro-receita-receber-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/receita/titulo/financeiro-receita-titulo-form.component.js"></script>
+
+    <!-- MODULES FINANCEIRO TRANSFERENCIA -->
+    <script type="text/javascript" src="app/modules/financeiro/transferencia/financeiro-transferencia.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/transferencia/form/financeiro-transferencia-form.component.js"></script>
+
+    <!-- MODULES FINANCEIRO CONTA -->
+    <script type="text/javascript" src="app/modules/financeiro/conta/financeiro-conta.js"></script>
+    <script type="text/javascript" src="app/modules/financeiro/conta/form/financeiro-conta-form.component.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/conta/extrato/financeiro-conta-extrato.component.js"></script>
+
+    <!-- MODULES FINANCEIRO FORMA PAGAMENTO -->
+    <script type="text/javascript" src="app/modules/financeiro/forma-pagamento/financeiro-forma-pagamento.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/forma-pagamento/form/financeiro-forma-pagamento-form.component.js"></script>
+
+    <!-- MODULES FINANCEIRO PLANO CONTA -->
+    <script type="text/javascript" src="app/modules/financeiro/plano-conta/financeiro-plano-conta.js"></script>
+    <script type="text/javascript"
+        src="app/modules/financeiro/plano-conta/form/financeiro-plano-conta-form.component.js"></script>
+
+    <!-- MODULES USUÁRIO -->
+    <script type="text/javascript" src="app/modules/usuario/usuario.js"></script>
+
+    <!-- MODULES RELATÓRIO -->
+
+    <!-- MODULES EMPRESA -->
+    <script type="text/javascript" src="app/component/empresa/empresa-form.component.js"></script>
+
+    <!-- MODULES TAREFA -->
+    <script type="text/javascript" src="app/modules/tarefa/tarefa.js"></script>
+    <script type="text/javascript" src="app/modules/tarefa/sub-tarefa/sub-tarefa-form.component.js"></script>
+    <script type="text/javascript" src="app/modules/tarefa/documento/tarefa-documento.component.js"></script>
+    <script type="text/javascript" src="app/modules/tarefa/montagem/tarefa-montagem.component.js"></script>
+    <script type="text/javascript" src="app/modules/tarefa/condicionante/tarefa-condicionante.component.js"></script>
+
+    <!-- Relatorio -->
+    <script type="text/javascript" src="app/component/relatorio/relatorio.component.js"></script>
+    <script type="text/javascript" src="app/component/relatorio/relatorio-xlsx.component.js"></script>
+
+    <!-- Paginação -->
+    <script type="text/javascript" src="app/component/paginacao/paginacao.component.js"></script>
+
+    <!-- Imprimir -->
+    <script type="text/javascript" src="app/modules/imprimir/imprimir.js"></script>
+
+    <!-- END APP ANGULAR -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('body').on('shown.bs.modal', function () { $('.modal:visible .focus', this).focus(); })
+            moment.tz.setDefault('America/Campo_Grande');
+            pageSetUp();
+        })
+        String.prototype.format = function () {
+            var a = this;
+            for (var k in arguments) {
+                a = a.replace(new RegExp("\\{" + k + "\\}", 'g'), arguments[k]);
+            }
+            return a
+        }
+        Number.prototype.cFloat = function () {
+            var a = this;
+            return parseFloat(a.toFixed(2));
+        }
+    </script>
+
+</body>
+
+</html>

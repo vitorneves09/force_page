@@ -1,0 +1,25 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<ol class="breadcrumb">
+			<li>Gerenciamento do Projeto</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<div class="row">
+			<div class="col col-lg-4">
+				<projeto-dashboard-info-component projeto="data"></projeto-dashboard-info-component>
+				<projeto-dashboard-planejamento-component projeto="data"></projeto-dashboard-planejamento-component>
+				<projeto-dashboard-documento-component projeto="data"></projeto-dashboard-documento-component>
+				<projeto-dashboard-condicionante-component projeto="data"></projeto-dashboard-condicionante-component>
+			</div>
+			<div class="col col-lg-8">
+				<projeto-dashboard-execucao-component projeto="data"></projeto-dashboard-execucao-component>
+				<projeto-dashboard-montagem-component projeto="data"></projeto-dashboard-montagem-component>
+				<projeto-dashboard-protocolo-component projeto="data"></projeto-dashboard-protocolo-component>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>

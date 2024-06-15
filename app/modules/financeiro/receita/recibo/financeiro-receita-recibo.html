@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="css/print.css">
+<div
+	style="min-height: 30cm; width: 21cm; font-family:Century Gothic; font-size:14px; color:#000000; background-color: white; padding: 20px; margin-top: -50px;">
+	<div ng-if="empresa.logo" class="text-center">
+		<img ng-src="{{cdnUrl + 'logo/' + empresa.logo}}" height="100" />
+	</div>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 22px;">
+			<b>RECIBO DE PAGAMENTO #{{data.id}}</b>
+		</span>
+	</p>
+	<br>
+	<p>
+		<span style="font-size: 18px;">
+			Recebemos de {{data.cliente.nome}}, CPF/CNPJ: {{data.cliente.documento | cpfCnpj}}, a importância de
+			{{data.valorPago | currency : 'R$ '}},
+			<span ng-if="data.contrato">referente ao pagamento {{data.opcaoPagamento | lowercase}} da parcela
+				#{{data.numero}} do Contrato {{data.contrato}},</span> com vencimento em {{data.dataVencimento
+			| date : 'dd/MM/yyyy'}}.
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">
+			Forma de Pagamento:
+			<b>{{data.financeiroFormaPagamento.nome}}</b>
+		</span>
+	</p>
+	<p style="text-align: left; margin-top:20px;">
+		<span style="font-size: 16px;">E para clareza firmamos o presente.</span>
+	</p>
+	<p style="text-align: right;">
+		<span style="font-size: 14px;">{{empresa.cidade}}/{{empresa.uf}}, {{hoje | date : 'fullDate'}}.</span>
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			_____________________________________________
+			<br>{{empresa.razaoSocial}}</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			{{empresa.endereco}} - {{empreas.cidade}}/{{empresa.uf}}
+			<br>Telefone: {{empresa.telefone | phonebr}} - Email: {{empresa.email}}</span>
+	</p>
+	<br>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		</span>
+	</p>
+	<div ng-if="empresa.logo" class="text-center">
+		<img ng-src="{{cdnUrl + 'logo/' + empresa.logo}}" height="100" />
+	</div>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 22px;">
+			<b>RECIBO DE PAGAMENTO #{{data.id}}</b>
+		</span>
+	</p>
+	<br>
+	<p>
+		<span style="font-size: 18px;">
+			Recebemos de {{data.cliente.nome}}, CPF/CNPJ: {{data.cliente.documento | cpfCnpj}}, a importância de
+			{{data.valorPago | currency : 'R$ '}},
+			<span ng-if="data.contrato">referente ao pagamento {{data.opcaoPagamento | lowercase}} da parcela
+				#{{data.numero}} do Contrato {{data.contrato}},</span> com vencimento em {{data.dataVencimento
+			| date : 'dd/MM/yyyy'}}.
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">
+			Forma de Pagamento:
+			<b>{{data.financeiroFormaPagamento.nome}}</b>
+		</span>
+	</p>
+	<p style="text-align: left; margin-top:20px;">
+		<span style="font-size: 16px;">E para clareza firmamos o presente.</span>
+	</p>
+	<p style="text-align: right;">
+		<span style="font-size: 14px;">{{empresa.cidade}}/{{empresa.uf}}, {{hoje | date : 'fullDate'}}.</span>
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			_____________________________________________
+			<br>{{empresa.razaoSocial}}</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			{{empresa.endereco}} - {{empreas.cidade}}/{{empresa.uf}}
+			<br>Telefone: {{empresa.telefone | phonebr}} - Email: {{empresa.email}}</span>
+	</p>
+</div>

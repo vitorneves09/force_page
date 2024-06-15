@@ -1,0 +1,145 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalDespesaPagarForm">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">
+					<strong>Pagar Despesa</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding" style="overflow: unset !important">
+				<form class="smart-form" ng-submit="$ctrl.save()" name="form">
+					<fieldset>
+						<div class="row">
+							<section ng-if="$ctrl.data.contrato" class="col col-6">
+								<label class="label">Projeto / Cliente</label>
+								<b>{{$ctrl.data.contrato}} - {{$ctrl.data.cliente.nome}}</b>
+							</section>
+							<section ng-if="!$ctrl.data.contrato" class="col col-6">
+								<label class="label">Pessoa</label>
+								<b>{{$ctrl.data.cliente.nome}}</b>
+							</section>
+							<section class="col col-3">
+								<label class="label">Data de Vencimento</label>
+								<b>{{$ctrl.data.dataVencimento | date : 'dd/MM/yyyy'}}</b>
+							</section>
+							<section class="col col-3">
+								<label class="label">Valor</label>
+								<b>{{$ctrl.data.valor | currency : 'R$ '}}</b>
+							</section>
+						</div>
+					</fieldset>
+					<header>Dados do Pagamento</header>
+					<fieldset>
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Opção de Pagamento</label>
+								<select selector model="$ctrl.data.opcaoPagamento" change="$ctrl.onOpcaoPagamento(newValue)" options="['Total','Parcial']"
+									placeholder="Escolha a opção de pagamento..." require="true"></select>
+							</section>
+							<section class="col col-4">
+								<label class="label">Valor Pago</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-usd"></i>
+									<input class="focus" type="text" ng-model="$ctrl.data.valorPago" ui-money-mask
+										ng-disabled="$ctrl.data.opcaoPagamento=='Total'">
+								</label>
+							</section>
+							<section class=" col col-4">
+								<label class="label">Data do Pagamento</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-calendar"></i>
+									<input type="text" ng-model="$ctrl.data.dataPagamento" ui-date-mask format-date
+										required>
+								</label>
+							</section>
+						</div>
+						<div ng-if="$ctrl.data.opcaoPagamento == 'Total'" class="row">
+							<section class="col col-4">
+								<label class="label">Juros</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-money"></i>
+									<input type="text" ng-model="$ctrl.data.juros" ng-change="$ctrl.calcValorPago()"
+										ui-money-mask>
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Acréscimo</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-money"></i>
+									<input type="text" ng-model="$ctrl.data.acrescimo" ng-change="$ctrl.calcValorPago()"
+										ui-money-mask>
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Desconto</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-money"></i>
+									<input type="text" ng-model="$ctrl.data.desconto" ng-change="$ctrl.calcValorPago()"
+										ui-money-mask>
+								</label>
+							</section>
+						</div>
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Forma de Pagamento</label>
+								<select selector model="$ctrl.data.financeiroFormaPagamentoId"
+									options="$ctrl.formaPagamentoList" label-attr="nome" value-attr="id"
+									placeholder="Escolha a forma de pagamento..." require="true"></select>
+							</section>
+							<section class="col col-4">
+								<label class="label">Conta</label>
+								<select selector model="$ctrl.data.financeiroContaId" options="$ctrl.contaList"
+									label-attr="nome" value-attr="id" placeholder="Escolha a conta..."
+									require="true"></select>
+							</section>
+							<section class="col col-4">
+								<label class="label">Número do Documento</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-list"></i>
+									<input type="text" ng-model="$ctrl.data.documento">
+								</label>
+							</section>
+						</div>
+					</fieldset>
+
+
+					<div ng-if="$ctrl.data.opcaoPagamento == 'Parcial'">
+						<header>Dados da Renegociação</header>
+						<fieldset>
+							<div class="row">
+								<section class="col col-6">
+									<label class="label">Valor da Nova Parcela</label>
+									<label class="input">
+										<i class="icon-prepend fa fa-usd"></i>
+										<input class="focus" type="text" ng-model="$ctrl.data.valorRenegociado" ui-money-mask
+											ng-disabled="$ctrl.data.opcaoPagamento=='Total'">
+									</label>
+								</section>
+								<section class=" col col-6">
+									<label class="label">Data do Vencimento da Nova Parcela</label>
+									<label class="input">
+										<i class="icon-prepend fa fa-calendar"></i>
+										<input type="text" ng-model="$ctrl.data.dataRenegociada" ui-date-mask format-date
+											required>
+									</label>
+								</section>
+							</div>
+
+						</fieldset>
+					</div>
+
+					<footer>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Pagar</button>
+					</footer>
+				</form>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

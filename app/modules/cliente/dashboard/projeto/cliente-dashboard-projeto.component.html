@@ -1,0 +1,82 @@
+<div class="well well-light well-sm no-padding">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="widget-body-toolbar">
+				<div class="row">
+					<div class="col-xs-3" style="margin-top: 4px;">
+						<span class="font-md"><b>Projetos</b></span>
+					</div>
+					<div class="col-xs-9" style="display: flex; justify-content: flex-end;">
+						<div class="margin-right-5">
+							<ul class="mini-pagination" style="margin: 0 !important; display:block;" uib-pagination
+								total-items="$ctrl.totalItems" ng-model="$ctrl.currentPage"
+								items-per-page="$ctrl.itemsPerPage" previous-text='&#9664' next-text="&#9654"
+								ng-change="$ctrl.change()" boundary-link-numbers="false" max-size="1"></ul>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								{{$ctrl.filter.status[0] || 'Tudo'}} &nbsp;<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" ng-click="$ctrl.search({})">Tudo</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Andamento']})">Andamento</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Cancelado']})">Cancelado</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({status: ['Concluído']})">Concluído</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="table-responsive p-0">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th colspan="2" ng-click="$ctrl.order('contrato')" class="pointer">
+								<i class="fa fa-sort"></i> Contrato
+							</th>
+							<th>Patrimônio</th>
+							<th ng-click="$ctrl.order('dataAssinatura')" class="pointer"><i class="fa fa-sort"></i>
+								Assinatura</th>
+							<th ng-click="$ctrl.order('dataPrazo')" class="pointer"><i class="fa fa-sort"></i> Prazo
+							</th>
+							<th ng-click="$ctrl.order('status')" class="pointer"><i class="fa fa-sort"></i> Situação
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="!$ctrl.data.length">
+							<td colspan="9" class="text-center text-bold">Nenhum projeto cadastrada.</td>
+						</tr>
+						<tr ng-repeat="item in $ctrl.data" ng-class="{ warning: item.status == 'Andamento'}">
+							<td width="40">
+								<a href="#/projeto/{{item.id}}" class="btn btn-success btn-xs">
+									<i class="fa fa-search"></i>
+								</a>
+							</td>
+							<td>
+								{{item.contrato}} - {{item.titulo}}
+							</td>
+							<td>{{item.patrimonio.nome}}</td>
+							<td>{{item.dataAssinatura | date : 'dd/MM/yyyy'}}</td>
+							<td>{{item.dataPrazo | date : 'dd/MM/yyyy'}}</td>
+							<td>{{item.status}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

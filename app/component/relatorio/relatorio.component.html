@@ -1,0 +1,82 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="relatorioModal">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Relatórios</strong>
+                </h4>
+            </div>
+            <div class="modal-body modal-overflow no-padding">
+
+                <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="label">Categoria</label>
+                                <select selector model="$ctrl.data.categoria" options="$ctrl.categoriaList"
+                                    label-attr="nome" placeholder="Escolha a categoria..." require="true"
+                                    change="$ctrl.changeCategoria(newValue)"></select>
+                            </section>
+                            <section class="col col-6">
+                                <label class="label">Relatório</label>
+                                <select selector model="$ctrl.data.relatorio" options="$ctrl.relatoriosList"
+                                    label-attr="nome" placeholder="Escolha o relatório..." require="true"
+                                    change="$ctrl.setGrupos(newValue)"></select>
+                            </section>
+                        </div>
+                        <section ng-if="$ctrl.data.relatorio.id != 'p2' && $ctrl.data.relatorio.id != 'p3'">
+                            <label class="label">Período</label>
+                            <input date-range-picker options="$ctrl.dateOptions" clearable="true" class="form-control"
+                                type="text" ng-model="$ctrl.data.periodo" readonly>
+                        </section>
+                        <section ng-if="$ctrl.data.relatorio.id == 'p2' || $ctrl.data.relatorio.id == 'p3'">
+                            <label class="label">Número do Contrato</label>
+                            <label class="input">
+                                <input type="text" class="form-control" ng-model="$ctrl.data.contrato"
+                                    placeholder="Ex.: 10000/2020">
+                            </label>
+                        </section>
+
+                        <div ng-if="$ctrl.data.relatorio.id == 'g1' || $ctrl.data.relatorio.id == 'g2' || $ctrl.data.relatorio.id == 'g3'"
+                            class="row">
+                            <section class="col col-4">
+                                <label class="label">Grupos</label>
+                                <select class="form-control" ng-model="$ctrl.data.plano2" ng-change="$ctrl.setGrupo(2)">
+                                    <option value="">Todos...</option>
+                                    <option ng-repeat="grupo in $ctrl.agrupamentoList[0] | agrupamento : false"
+                                        value="{{grupo.id}}">{{grupo.nome}}</option>
+                                </select>
+                            </section>
+                            <section class="col col-4">
+                                <label class="label">&nbsp; </label>
+                                <select class="form-control" ng-model="$ctrl.data.plano3" ng-change="$ctrl.setGrupo(3)">
+                                    <option value="">Todos...</option>
+                                    <option ng-repeat="grupo in $ctrl.agrupamentoList[1] | agrupamento : false"
+                                        value="{{grupo.id}}">{{grupo.nome}}</option>
+                                </select>
+                            </section>
+                            <section class="col col-4">
+                                <label class="label">&nbsp; </label>
+                                <select class="form-control" ng-model="$ctrl.data.plano4">
+                                    <option value="">Todos...</option>
+                                    <option ng-repeat="grupo in $ctrl.agrupamentoList[2] | agrupamento : false"
+                                        value="{{grupo.id}}">{{grupo.nome}}</option>
+                                </select>
+                            </section>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.visualizar()"
+                    ng-disabled="form.$invalid">Visualizar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

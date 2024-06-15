@@ -1,0 +1,50 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalProjetoMontagemProtocolarPendencia">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Protocolar Pendência</strong>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-9">
+                                <label class="label">Identificação</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-list"></i>
+                                    <input class="focus" type="text" ng-model="$ctrl.data.identificador" required>
+                                </label>
+                            </section>
+                            <section class="col col-3">
+                                <label class="label">Data do Protocolo</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-calendar"></i>
+                                    <input type="text" ng-model="$ctrl.data.dataProtocolo" ui-date-mask format-date
+                                        required>
+                                </label>
+                            </section>
+                        </div>
+                        <section>
+                            <label class="label">Documento do Protocolo</label>
+                            <div class="input input-file">
+                                <input type="file" id="doc" name="doc" ng-files="$ctrl.addFile($files)">
+                            </div>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Salvar</button>
+                    </footer>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

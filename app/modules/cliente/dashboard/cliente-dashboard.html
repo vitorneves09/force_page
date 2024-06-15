@@ -1,0 +1,51 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<ol class="breadcrumb">
+			<li>Informações da Pessoa</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<div class="row">
+			<div class="col col-lg-4">
+				<cliente-dashboard-info-component></cliente-dashboard-info-component>
+				<cliente-dashboard-documento-component></cliente-dashboard-documento-component>
+				<cliente-dashboard-patrimonio-component></cliente-dashboard-patrimonio-component>
+			</div>
+			<div class="col col-lg-8">
+				<cliente-dashboard-proposta-component
+					ng-if="hasModule('Comercial')"></cliente-dashboard-proposta-component>
+				<cliente-dashboard-projeto-component ng-if="hasModule('Projetos')"></cliente-dashboard-projeto-component>
+
+				<div ng-if="hasModule('Financeiro')">
+					<ul class="nav nav-tabs tabs-pull-right bordered"
+						style="border-bottom: 0; background-color: #fafafa;">
+						<li class="pull-left">
+							<div style="padding:8px; padding-left: 12px;">
+								<span class="font-md"><b>Financeiro</b></span>
+							</div>
+						</li>
+						<li ng-class="{'active' : tab=='despesas'}">
+							<a href="" ng-click="tab='despesas'"><i class="fa fa-fw fa-lg fa-arrow-circle-up"></i>
+								Despesas&nbsp;</a>
+						</li>
+						<li ng-class="{'active' : tab=='receitas'}">
+							<a href="" ng-click="tab='receitas'"><i class="fa fa-fw fa-lg fa-arrow-circle-down"></i>
+								Receitas&nbsp;</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div ng-class="{'active' : tab=='receitas'}" class="tab-pane">
+							<cliente-dashboard-financeiro-receita-component></cliente-dashboard-financeiro-receita-component>
+						</div>
+						<div ng-class="{'active' : tab=='despesas'}" class="tab-pane">
+							<cliente-dashboard-financeiro-despesa-component></cliente-dashboard-financeiro-despesa-component>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>

@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalClientePatrimonioUploadForm">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"> <strong>Documentos - {{$ctrl.patrimonio.nome}}</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+
+				<div class="smart-form">
+					<div class="table-responsive p-0">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="3">Descrição</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!$ctrl.data.length">
+									<td class="text-center text-bold">Nenhum documento cadastrado.</td>
+								</tr>
+								<tr ng-repeat="item in $ctrl.data">
+									<td width="70">
+										<a ng-href="{{$ctrl.fileUrl+item.patrimonio.clienteId+'/patrimonios/'+item.id+'/'+item.arquivo}}"
+											target="_blank" class="btn btn-xs btn-success">
+											<i class="fa fa-search"></i>
+										</a>
+										<a href="" class="btn btn-xs btn-danger" ng-click="$ctrl.remove(item)">
+											<i class="fa fa-remove"></i>
+										</a>
+									</td>
+									<td>{{item.nome}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<footer>
+						<input type="file" id="clientePatrimonioUploadDashboardFileInput"
+							ng-files="$ctrl.addFile($files)" class="hide">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary" ng-click="$ctrl.openFileInput()">
+							Adicionar
+						</button>
+					</footer>
+				</div>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,85 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>Montagem de Processo</b></span>
+                    </div>
+                    <div class="col-xs-8 text-align-right" ng-if="$ctrl.projeto.status != 'Concluído'">
+                        <button type="button" class="btn btn-default"
+                            ng-click="$ctrl.modal('PROJETO_MONTAGEM_FORM_MODAL')">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Montagem</th>
+                            <th>Prazo em Dias</th>
+                            <th>Prazo Limite</th>
+                            <th>Responsavel</th>
+                            <th width="150">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td colspan="8" class="text-center text-bold">Nenhuma montagem cadastrada.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data"
+                            ng-class="{'danger': item.status == 'Atribuição', 'warning': item.status == 'Andamento', 'info': item.status == 'Concluído'}">
+                            <td width="30">
+                                <div class="btn-group dropup">
+                                    <button type="button" class="btn btn-xs btn-default dropdown-toggle"
+                                        data-toggle="dropdown">
+                                        <i class="fa fa-bars"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="javascript:void(0);"
+                                                ng-click="$ctrl.modal('PROJETO_MONTAGEM_FORM_MODAL', item)"><i
+                                                    class="fa fa-pencil margin-right-5"></i> Dados da Montagem</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);"
+                                                ng-click="$ctrl.modal('MONTAGEM_DOCUMENTO_MODAL', item)"><i
+                                                    class="fa fa-archive margin-right-5"></i>
+                                                Documentos da Montagem</a>
+                                        </li>
+                                        <li ng-if="item.status == 'Concluído'" class="divider"></li>
+                                        <li ng-if="item.status == 'Concluído' && !item.projetoProtocoloPendencia">
+                                            <a href="javascript:void(0);"
+                                                ng-click="$ctrl.modal('PROJETO_MONTAGEM_PROTOCOLAR_MODAL', item)"><i
+                                                    class="fa fa-check margin-right-5"></i> Protocolar</a>
+                                        </li>
+                                        <li ng-if="item.status == 'Concluído' && item.projetoProtocoloPendencia">
+                                            <a href="javascript:void(0);"
+                                                ng-click="$ctrl.modal('PROJETO_MONTAGEM_PROTOCOLAR_PENDENCIA_MODAL', item)"><i
+                                                    class="fa fa-check margin-right-5"></i> Protocolar Pendência</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>{{item.nome}}</td>
+                            <td>{{item.prazo}} dias</td>
+                            <td>{{item.dataPrazo | date:"dd/MM/yyyy" }}</td>
+                            <td>{{item.usuario.nome || 'Aguardando Atribuição'}}</td>
+                            <td>{{item.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<projeto-montagem-form-component on-update="$ctrl.load()"></projeto-montagem-form-component>
+<projeto-montagem-documento-component></projeto-montagem-documento-component>
+<projeto-montagem-protocolar-component on-update="$ctrl.load()"></projeto-montagem-protocolar-component>
+<projeto-montagem-protocolar-pendencia-component
+    on-update="$ctrl.load()"></projeto-montagem-protocolar-pendencia-component>

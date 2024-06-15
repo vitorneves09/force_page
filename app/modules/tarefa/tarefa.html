@@ -1,0 +1,149 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<ol class="breadcrumb">
+			<li>Tarefas</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<div class="row">
+			<div ng-if="!data.length">
+
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h1 class="page-title txt-color-blueDark text-center well">
+						
+						<!-- PAGE HEADER -->
+							<strong>Nenhuma Tarefa</strong><br><br>
+							<small>No momento você não possui nenhuma tarefa ou pendência.</small>
+					</h1>
+					
+				</div>
+
+			</div>
+
+			<div ng-repeat="tarefa in data" class="col col-md-6 col-lg-4">
+				<div class="well well-light well-sm no-padding">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-8" style="margin-top: 4px;">
+										<span class="font-md"><b>{{tarefa.nome}}</b></span>
+									</div>
+									<div class="col-xs-4 text-align-right">
+										<div class="btn-group">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												<i class="fa fa-bars"></i>
+											</button>
+											<ul class="dropdown-menu pull-right">
+												<li>
+													<a href="javascript:void(0);"
+														ng-click="modal('SUB_TAREFA_FORM_MODAL', {tarefaId: tarefa.id})"><i
+															class="fa fa-plus margin-right-5"></i> Nova Sub-Tarefa</a>
+												</li>
+												<li ng-if="tarefa.origem == 'Execução'">
+													<a href="javascript:void(0);"
+														ng-click="modal('TAREFA_DOCUMENTO_MODAL', tarefa)"><i
+															class="fa fa-archive margin-right-5"></i> Arquivos e
+														Documentos</a>
+												</li>
+												<li ng-if="tarefa.origem == 'Montagem'">
+													<a href="javascript:void(0);"
+														ng-click="modal('TAREFA_MONTAGEM_MODAL', tarefa)"><i
+															class="fa fa-archive margin-right-5"></i> Documentos da
+														Montagem</a>
+												</li>
+												<li ng-if="tarefa.origem == 'Condicionante'">
+													<a href="javascript:void(0);"
+														ng-click="modal('TAREFA_CONDICIONANTE_MODAL', tarefa)"><i
+															class="fa fa-archive margin-right-5"></i> Documentos da
+														Condicionante</a>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<a href="javascript:void(0);" ng-click="concluir(tarefa)"><i
+															class="fa fa-check margin-right-5"></i> Concluir
+														Tarefa</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+								<div class="padding-10">
+									<div class="col-sm-12">
+										<p>
+											<span class="one-line">
+												<b>Enviada por:</b> {{tarefa.fromUsuario.nome}}
+											</span>
+											<span class="one-line">
+												<b>Origem:</b> {{tarefa.origem}}
+											</span>
+											<hr ng-if="tarefa.descricao" style="margin-bottom: 7px; margin-top: 7px;">
+											<span ng-if="tarefa.descricao" class="one-line">
+												<p><span ng-bind-html="tarefa.descricao"></span></p>
+											</span>
+											<hr ng-if="tarefa.descricao" style="margin-bottom: 7px; margin-top: 7px;">
+											<span class="one-line">
+												<b>Cliente:</b> {{tarefa.cliente.nome}}
+											</span>
+											<span class="one-line" ng-if="tarefa.patrimonioId">
+												<b>Patrimônio:</b> {{tarefa.patrimonio.nome}}
+											</span>
+											<span class="one-line">
+												<b>Projeto:</b> {{tarefa.projeto.contrato}} -
+												{{tarefa.projeto.titulo}}
+											</span>
+											<span class="one-line">
+												<b>Prazo da Tarefa:</b> {{tarefa.dataPrazo | date:'dd/MM/yyyy'}}
+											</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div ng-if="tarefa.subTarefas.length" class="col-sm-12 no-padding"
+								style="border-top: 1px solid #ddd">
+								<div class="table-responsive">
+
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th colspan="2">
+													Sub-Tarefas
+												</th>
+												<th width="120">Situação</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in tarefa.subTarefas"
+												ng-class="{ warning : item.status == 'Andamento' }">
+												<td width=" 20">
+													<a href="" class="btn btn-success btn-xs"
+														ng-click="modal('SUB_TAREFA_FORM_MODAL', item)">
+														<i class="fa fa-search"></i>
+													</a>
+												</td>
+												<td>{{item.nome}}</td>
+												<td>{{item.status}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<sub-tarefa-form-component on-update="load()"></sub-tarefa-form-component>
+<tarefa-documento-component></tarefa-documento-component>
+<tarefa-montagem-component></tarefa-montagem-component>
+<tarefa-condicionante-component></tarefa-condicionante-component>
+<ng-include src="'app/layout/footer.html'"></ng-include>

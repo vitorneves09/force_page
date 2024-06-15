@@ -1,0 +1,115 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>{{$ctrl.projeto.contrato}}</b></span>
+                    </div>
+                    <div class="col-xs-8 text-align-right" ng-if="$ctrl.projeto.status != 'Concluído'">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="$ctrl.concluirProjeto()"><i
+                                        class="fa fa-check margin-right-5"></i>
+                                    Concluir Projeto</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="row" style="line-height: 22px;">
+                <div class="padding-10">
+                    <div class="col-md-6">
+                        <p>
+                            <span class="one-line">
+                                <b>Cliente:</b> {{$ctrl.projeto.cliente.nome}}
+                            </span>
+                            <span class="one-line" ng-if="$ctrl.projeto.patrimonioId">
+                                <b>Patrimônio:</b> {{$ctrl.projeto.patrimonio.nome}}
+                            </span>
+                            <span class="one-line">
+                                <b>Contrato:</b> {{$ctrl.projeto.contrato}}
+                            </span>
+                            <span class="one-line">
+                                <b>Projeto:</b> {{$ctrl.projeto.titulo}}
+                            </span>
+                            <span class="one-line">
+                                <b>Prazo Final:</b> {{$ctrl.projeto.dataPrazo | date:'dd/MM/yyyy'}}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="table-responsive" style="border: 1px solid #ddd; margin-bottom: 12px;">
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr
+                                        ng-class="{'danger' : $ctrl.projeto.statusPlanejamento == 'Pendente', 'success': $ctrl.projeto.statusPlanejamento == 'Concluído', 'info': $ctrl.projeto.statusPlanejamento == 'Encerrado'}">
+                                        <td><strong>Planejamento</strong></td>
+                                        <td>{{$ctrl.projeto.statusPlanejamento}}</td>
+                                    </tr>
+                                    <tr
+                                        ng-class="{'danger' : $ctrl.projeto.statusAtribuicao == 'Pendente', 'success': $ctrl.projeto.statusAtribuicao == 'Concluído', 'info': $ctrl.projeto.statusAtribuicao == 'Encerrado'}">
+                                        <td><strong>Atribuição</strong></td>
+                                        <td>{{$ctrl.projeto.statusAtribuicao}}</td>
+                                    </tr>
+                                    <tr
+                                        ng-class="{'warning' : $ctrl.projeto.statusExecucao == 'Andamento', 'success': $ctrl.projeto.statusExecucao == 'Concluído', 'info': $ctrl.projeto.statusExecucao == 'Encerrado'}">
+                                        <td><strong>Execução</strong></td>
+                                        <td>{{$ctrl.projeto.statusExecucao}}</td>
+                                    </tr>
+                                    <tr
+                                        ng-class="{'danger' : $ctrl.projeto.statusMontagem == 'Pendente', 'warning' : $ctrl.projeto.statusMontagem == 'Andamento', 'success': $ctrl.projeto.statusMontagem == 'Concluído', 'info': $ctrl.projeto.statusMontagem == 'Encerrado'}">
+                                        <td><strong>Montagem</strong></td>
+                                        <td>{{$ctrl.projeto.statusMontagem}}</td>
+                                    </tr>
+                                    <tr
+                                        ng-class="{'danger' : $ctrl.projeto.statusProtocolo == 'Pendência' || $ctrl.projeto.statusProtocolo == 'Pendente', 'warning' : $ctrl.projeto.statusProtocolo == 'Acompanhamento', 'success': $ctrl.projeto.statusProtocolo == 'Concluído'}">
+                                        <td><strong>Protocolo</strong></td>
+                                        <td>{{$ctrl.projeto.statusProtocolo}}</td>
+                                    </tr>
+                                    <tr
+                                        ng-class="{'warning' : $ctrl.projeto.status == 'Andamento', 'success': $ctrl.projeto.status == 'Concluído', 'danger': $ctrl.projeto.status == 'Cancelado'}">
+                                        <td><strong>Projeto</strong></td>
+                                        <td>{{$ctrl.projeto.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="$ctrl.projeto.repositorios.length" class="col-sm-12">
+            <div class="table-responsive p-0" style="border-top: 1px solid #ddd">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Documentos Finais</th>
+                            <th>Assinatura</th>
+                            <th>Vencimento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.projeto.repositorios">
+                            <td width="30">
+                                <a ng-href="{{$ctrl.fileUrl+$ctrl.projeto.clienteId+'/projetos/'+$ctrl.projeto.id+'/repositorio/'+item.arquivo}}"
+                                    target="_blank" class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </td>
+                            <td>{{item.identificador}}</td>
+                            <td>{{item.dataAssinatura | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item.dataVencimento | date:'dd/MM/yyyy'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

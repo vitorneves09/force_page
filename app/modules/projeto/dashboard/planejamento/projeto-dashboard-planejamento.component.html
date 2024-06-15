@@ -1,0 +1,83 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>Planejamento</b></span>
+                    </div>
+                    <div class="col-xs-8 text-align-right" ng-if="$ctrl.projeto.status != 'Concluído'">
+                        <input type="file" id="projetoDashboardPlanejamentoFileInput" ng-files="$ctrl.addFile($files)"
+                            class="hide">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="$ctrl.openFileInput()"><i
+                                        class="fa fa-upload margin-right-5"></i> Enviar Arquivo</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                    ng-click="$ctrl.modal('PROJETO_PLANEJAMENTO_FORM_MODAL')"><i
+                                        class="fa fa-pencil margin-right-5"></i> Redigir Conteúdo</a>
+                            </li>
+                            <li ng-if="$ctrl.projeto.statusPlanejamento == 'Pendente'" class="divider"></li>
+                            <li ng-if="$ctrl.projeto.statusPlanejamento == 'Pendente'">
+                                <a href="javascript:void(0);" ng-click="$ctrl.concluirPlanejamento()"><i
+                                        class="fa fa-check margin-right-5"></i> Concluir
+                                    Planejamento</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Nome</th>
+                            <th>Enviado</th>
+                            <th width="120">Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td colspan="10" class="text-center text-bold">Nenhum planejamento cadastrado.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data">
+                            <td width="{{$ctrl.projeto.status != 'Concluído' ? '70' : '30'}}" ng-if="item.arquivo">
+                                <a ng-href="{{$ctrl.fileUrl+$ctrl.projeto.clienteId+'/projetos/'+$ctrl.projeto.id+'/planejamentos/'+item.arquivo}}"
+                                    target="_blank" class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a ng-if="$ctrl.projeto.status != 'Concluído'" href="" class="btn btn-xs btn-danger"
+                                    ng-click="$ctrl.removeFile(item)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                            <td width="{{$ctrl.projeto.status != 'Concluído' ? '70' : '30'}}" ng-if="!item.arquivo">
+                                <a ng-click="$ctrl.modal('PROJETO_PLANEJAMENTO_FORM_MODAL', item)" target="_blank"
+                                    class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a ng-if="$ctrl.projeto.status != 'Concluído'" href="" class="btn btn-xs btn-danger"
+                                    ng-click="$ctrl.removeFile(item)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                            <td>{{item.titulo}}</td>
+                            <td>{{item.usuario.nome}}</td>
+                            <td>{{item.arquivo ? 'Arquivo' : 'Conteúdo'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<projeto-planejamento-form-component on-update="$ctrl.load()"></projeto-planejamento-form-component>

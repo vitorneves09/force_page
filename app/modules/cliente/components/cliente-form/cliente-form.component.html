@@ -1,0 +1,115 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalClienteForm">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"> <strong>Pessoa</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+
+				<form class="smart-form" ng-submit="$ctrl.save()" name="form">
+					<fieldset>
+						<section>
+							<label class="label"><b>Nome</b></label>
+							<label class="input"> <i class="icon-prepend fa fa-user"></i>
+								<input class="focus" type="text" ng-model="$ctrl.cliente.nome" required></label>
+						</section>
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Data de Nascimento</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-calendar"></i>
+									<input type="text" ng-model="$ctrl.cliente.dataNascimento" ui-date-mask
+										format-date></label>
+							</section>
+							<section class="col col-4">
+								<label class="label"><b>CNPJ / CPF</b></label>
+								<label class="input">
+									<i class="icon-prepend fa fa-clipboard"></i>
+									<input type="text" ng-model="$ctrl.cliente.documento"
+										ng-disabled="$ctrl.cliente.$id" ui-br-cpfcnpj-mask required></label>
+							</section>
+							<section class="col col-4">
+								<label class="label">RG</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-clipboard"></i>
+									<input type="text" ng-model="$ctrl.cliente.rg"></label>
+							</section>
+						</div>
+					</fieldset>
+					<header>Dados de Contato</header>
+					<fieldset>
+						<div class="row">
+							<section class="col col-2">
+								<label class="label">Estado</label>
+								<label class="select">
+									<select selector model="$ctrl.cliente.uf" options="$ctrl.estadosList"
+										change="$ctrl.getCidades(newValue)" placeholder="Selecione..."></select>
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Cidade</label>
+								<label class="select">
+									<select selector model="$ctrl.cliente.cidade" options="$ctrl.cidadesList"
+										placeholder="Selecione..."></select>
+								</label>
+							</section>
+							<section class="col col-6">
+								<label class="label">Bairro</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-arrows"></i>
+									<input type="text" ng-model="$ctrl.cliente.bairro"></label>
+							</section>
+						</div>
+						<div class="row">
+							<section class="col col-6">
+								<label class="label">Endereço</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-arrows-alt"></i>
+									<input type="text" ng-model="$ctrl.cliente.endereco"></label>
+							</section>
+							<section class="col col-6">
+								<label class="label">Email</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-envelope"></i>
+									<input type="email" ng-model="$ctrl.cliente.email"></label>
+							</section>
+						</div>
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Tel Residencial</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-phone"></i>
+									<input type="text" ng-model="$ctrl.cliente.telResidencial"
+										ui-br-phone-number></label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Tel Comercial</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-phone"></i>
+									<input type="text" ng-model="$ctrl.cliente.telComercial" ui-br-phone-number></label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Tel Celular</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-phone"></i>
+									<input type="text" ng-model="$ctrl.cliente.telCelular" ui-br-phone-number></label>
+							</section>
+						</div>
+					</fieldset>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid"
+					ng-click="$ctrl.save()">Salvar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

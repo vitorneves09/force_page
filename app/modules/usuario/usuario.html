@@ -1,0 +1,126 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Manutenção</li>
+			<li>Usuários</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<form ng-submit="filtrarUsuarios(busca)">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<div class="jarviswidget-ctrls" style="height: 33px !important;">
+								<button type="submit" class="btn btn-default btn-sm">
+									<i class="fa fa-search"></i> Buscar
+								</button>
+								<button type="button" class="btn btn-default btn-sm"
+									ng-click="busca = {}; filtrarUsuarios(busca)">
+									<i class="fa fa-eraser"></i>
+								</button> &nbsp;
+							</div>
+							<h2>Busca Personalizada</h2>
+						</header>
+
+						<!-- widget div-->
+						<div>
+
+							<div class="widget-body">
+								<!-- content goes here -->
+
+								<fieldset>
+									<div class="row">
+										<section class="col-md-4">
+											<label>Nome</label>
+											<input class="form-control" type="text" ng-model="busca.nome">
+										</section>
+										<section class="col-md-4">
+											<label>Login</label>
+											<input class="form-control" type="text" ng-model="busca.usuario">
+										</section>
+										<section class="col-md-4">
+											<label>Situação</label>
+											<select selector model="busca.situacao" options="['Ativo', 'Inativo']"
+												placeholder="Todas"></select>
+										</section>
+									</div>
+								</fieldset>
+
+								<!-- end content -->
+							</div>
+
+						</div>
+						<!-- end widget div -->
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<div class="well well-light well-sm no-padding">
+
+			<div class="row">
+
+				<div class="col-sm-12">
+					<div class="widget-body-toolbar">
+						<div class="row">
+							<div class="col-xs-8" style="margin-top: 4px;">
+								<span class="font-md"><b>Usuários</b></span>
+							</div>
+							<div class="col-xs-4 text-align-right">
+								<button ng-click="modalUsuario()" type="button"
+									class="btn btn-sm btn-labeled btn-primary">
+									<span class="btn-label">
+										<i class="fa fa-plus"></i>
+									</span>Adicionar
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="table-responsive">
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="2">Nome do Usuário</th>
+									<th>Login</th>
+									<!-- <th>Regra</th> -->
+									<th>Email</th>
+									<th>Situação</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="usuario in usuarios">
+									<td width="20">
+										<a href="" class="btn btn-success btn-xs" ng-click="modalUsuario(usuario)">
+											<i class="fa fa-search"></i>
+										</a>
+									</td>
+									<td>{{usuario.nome}}</td>
+									<td>{{usuario.usuario}}</td>
+									<!-- <td>{{usuario.regra.nome}}</td> -->
+									<td>{{usuario.email}}</td>
+									<td>{{usuario.situacao}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<ul uib-pagination total-items="totalUsuarios" ng-model="paginaUsuarios"
+								items-per-page="usuariosPorPagina" ng-change="mudarPaginaUsuarios(paginaUsuarios)"
+								boundary-link-numbers="true" max-size="10"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>
+
+<ng-include src="'app/modules/usuario/form/usuario-form.component.html'"></ng-include>

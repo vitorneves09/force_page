@@ -1,0 +1,292 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Grade de Projetos</li>
+		</ol>
+		<span class="ribbon-button-alignment pull-right">
+			<a class="btn btn-ribbon" href="#/projeto-lista">
+				<i class="fa fa-list"></i>
+				&nbsp;Visualização em Lista
+			</a>
+		</span>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+
+		<div class="row">
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Planejamento</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!planejamento.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in planejamento">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Atribuição</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!atribuicao.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in atribuicao">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Execucão</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!execucao.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in execucao">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Montagem Pendente</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!montagem.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in montagem">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Montagem em Andamento</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!montagemAndamento.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in montagemAndamento">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Protocolo Pendente</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!protocolo.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in protocolo">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Acompanhamento</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!protocoloAcompanhamento.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in protocoloAcompanhamento">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col col-md-3">
+				<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="widget-body-toolbar">
+								<div class="row">
+									<div class="col-xs-12" style="margin-top: 4px;">
+										<span class="font-md"><b>Pendência</b></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover margin-bottom-0">
+									<tr ng-if="!protocoloPendencia.length">
+										<td colspan="8" class="text-center text-bold">Nenhum projeto.</td>
+									</tr>
+									<tr ng-repeat="projeto in protocoloPendencia">
+										<td width="30">
+											<a href="#/projeto/{{projeto.id}}" class="btn btn-success btn-xs">
+												<i class="fa fa-search"></i>
+											</a>
+										</td>
+										<td>{{projeto.contrato}} - {{projeto.titulo}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>

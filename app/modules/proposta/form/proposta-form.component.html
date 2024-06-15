@@ -1,0 +1,128 @@
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalPropostaForm">
+    <div class="modal-dialog modal-xl" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Proposta Comercial <span>{{$ctrl.data.contrato}}</span></strong>
+                </h4>
+            </div>
+            <div class="modal-body modal-overflow no-padding">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="jarviswidget no-margin">
+                            <header>
+                                <ul class="nav nav-tabs pull-left in">
+                                    <li ng-class="{'active' : $ctrl.tab=='geral'}">
+                                        <a href="" ng-click="$ctrl.changeTab('geral')">
+                                            <i class="fa fa-lg fa-user"></i>
+                                            Geral
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='financeiro'}">
+                                        <a href="" ng-click="$ctrl.changeTab('financeiro')">
+                                            <i class="fa fa-lg fa-money"></i>
+                                            Financeiro
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='custos'}">
+                                        <a href="" ng-click="$ctrl.changeTab('custos')">
+                                            <i class="fa fa-lg fa-wrench"></i>
+                                            Custos
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='etapas'}">
+                                        <a href="" ng-click="$ctrl.changeTab('etapas')">
+                                            <i class="fa fa-lg fa-server"></i>
+                                            Etapas
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='cContratante'}">
+                                        <a href="" ng-click="$ctrl.changeTab('cContratante')">
+                                            <i class="fa fa-lg fa-legal"></i>
+                                            Contratante
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='cContratado'}">
+                                        <a href="" ng-click="$ctrl.changeTab('cContratado')">
+                                            <i class="fa fa-lg fa-legal"></i>
+                                            Contratado
+                                        </a>
+                                    </li>
+                                    <li ng-class="{'active' : $ctrl.tab=='documentos'}">
+                                        <a href="" ng-click="$ctrl.changeTab('documentos')">
+                                            <i class="fa fa-lg fa-files-o"></i>
+                                            Documentos
+                                        </a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div>
+                                <div class="widget-body no-padding">
+                                    <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                                        <div class="tab-content">
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='geral'}">
+                                                <proposta-tab-geral-component data="$ctrl.data">
+                                                </proposta-tab-geral-component>
+                                            </div>
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='financeiro'}">
+                                                <proposta-tab-financeiro-component data="$ctrl.data">
+                                                </proposta-tab-financeiro-component>
+                                            </div>
+
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='custos'}">
+                                                <proposta-tab-custo-component data="$ctrl.data">
+                                                </proposta-tab-custo-component>
+                                            </div>
+
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='etapas'}">
+                                                <proposta-tab-etapa-component data="$ctrl.data">
+                                                </proposta-tab-etapa-component>
+                                            </div>
+
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='cContratante'}">
+                                                <proposta-tab-contratante-component data="$ctrl.data">
+                                                </proposta-tab-contratante-component>
+                                            </div>
+
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='cContratado'}">
+                                                <proposta-tab-contratado-component data="$ctrl.data">
+                                                </proposta-tab-contratado-component>
+                                            </div>
+
+                                            <div class="tab-pane" ng-class="{'active' : $ctrl.tab=='documentos'}">
+                                                <proposta-tab-documento-component data="$ctrl.data">
+                                                </proposta-tab-documento-component>
+                                            </div>
+
+                                        </div>
+                                        <footer>
+                                            <button ng-if="$ctrl.data.id && $ctrl.data.status != 'Cancelada' && $ctrl.data.status != 'Concluída' && $ctrl.tab == 'geral'" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.cancelar()">Cancelar Proposta</button>
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Fechar</button>
+                                            <button ng-if="$ctrl.data.status != 'Cancelada' && $ctrl.data.status != 'Concluída'" type="submit" class="btn btn-primary"
+                                                ng-disabled="form.$invalid">Salvar</button>
+                                        </footer>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<proposta-titulo-form-component></proposta-titulo-form-component>
+<proposta-custo-form-component></proposta-custo-form-component>
+<proposta-etapa-form-component></proposta-etapa-form-component>
+<proposta-clausula-contratante-form-component></proposta-clausula-contratante-form-component>
+<proposta-clausula-contratado-form-component></proposta-clausula-contratado-form-component>
+<proposta-documento-form-component></proposta-documento-form-component>
+<!-- <default-form-component on-update="$ctrl.updateAndSelect(evento, item, field)"></default-form-component>
+<custo-form-component on-update="$ctrl.updateAndSelect(evento, item)"></custo-form-component>
+<etapa-form-component on-update="$ctrl.updateAndSelect(evento, item)"></etapa-form-component>
+-->

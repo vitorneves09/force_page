@@ -1,0 +1,56 @@
+<div ng-show="!$ctrl.data.custoValor.length" class="alert alert-warning no-margin" role="warning">
+	Nenhum <strong>CUSTO</strong> selecionado.
+</div>
+
+<section ng-show="$ctrl.data.custoValor.length">
+	<div class="table">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th width="20"></th>
+					<th>Custos</th>
+					<th width="200">Valor</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="custo in $ctrl.data.custoValor">
+					<td>
+						<a href="" class="btn btn-danger btn-sm" ng-click="$ctrl.remove($index)">
+							<i class="fa fa-remove"></i>
+						</a>
+					</td>
+					<td>
+						<label class="select">
+							<select selector model="custo.propostaCustoId" create="$ctrl.create(input, $index)"
+								options="$ctrl.itemList" value-attr="id" label-attr="nome"
+								placeholder="Escolha o custo..." dropdown-create-template="'selector/newItem'"
+								require="true"></select>
+						</label>
+					</td>
+					<td>
+						<label class="input">
+							<input type="text" ng-model="custo.valor" ui-money-mask>
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">Total dos Custos:
+						{{($ctrl.custosValue() || 0) | currency : 'R$ '}}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">Valor da Proposta:
+						{{($ctrl.data.financeiro.valor || 0) | currency : 'R$'}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<div class="margin-10">
+	<button ng-click="$ctrl.add()" type="button" class="btn btn-sm btn-labeled btn-primary">
+		<span class="btn-label">
+			<i class="fa fa-plus"></i>
+		</span>Adicionar
+</div>

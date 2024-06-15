@@ -1,0 +1,100 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalPropostaModelo">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">
+					<strong>Modelo de Proposta</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+				<form class="smart-form" ng-submit="$ctrl.save()" name="form">
+					<fieldset>
+						<section>
+							<label class="label">Descrição</label>
+							<label class="input">
+								<i class="icon-prepend fa fa-list"></i>
+								<input class="focus" type="text" ng-model="$ctrl.data.nome" required>
+							</label>
+						</section>
+						<section>
+							<label class="label">Objetivo do Projeto</label>
+							<select selector model="$ctrl.data.objetivoId"
+								create="$ctrl.create(input, 'PROPOSTA_OBJETIVO_FORM_MODAL')" multi="false"
+								options="$ctrl.list.objetivo" value-attr="id" label-attr="nome"
+								placeholder="Escolha o objetivo do projeto..." dropdown-item-template="'selectPadrao'"
+								dropdown-create-template="'selector/newItem'" require="true"></select>
+						</section>
+						<section>
+							<label class="label">Etapas de Execução</label>
+							<select selector model="$ctrl.data.etapa"
+								create="$ctrl.create(input, 'PROPOSTA_ETAPA_FORM_MODAL')" multi="true"
+								options="$ctrl.list.etapa" value-attr="id" label-attr="nome"
+								placeholder="Escolha as etapas que fazem parte deste projeto..."
+								dropdown-create-template="'selector/newItem'" require="true"></select>
+						</section>
+						<section>
+							<label class="label">Custos Especificos</label>
+							<select selector model="$ctrl.data.custo"
+								create="$ctrl.create(input, 'PROPOSTA_CUSTO_FORM_MODAL')" multi="true"
+								options="$ctrl.list.custo" value-attr="id" label-attr="nome"
+								dropdown-create-template="'selector/newItem'"
+								placeholder="Escolha os custos que fazem parte deste projeto..."></select>
+						</section>
+						<section>
+							<label class="label">Cláusulas do Contratante</label>
+							<select selector model="$ctrl.data.clausulaContratante"
+								create="$ctrl.create(input, 'PROPOSTA_CLAUSULA_CONTRATANTE_FORM_MODAL')" multi="true"
+								options="$ctrl.list.contratante" value-attr="id" label-attr="nome"
+								placeholder="Escolha as cláusulas do contratante que fazem parte deste projeto..."
+								dropdown-item-template="'selectPadrao'"
+								dropdown-create-template="'selector/newItem'"></select>
+						</section>
+						<section>
+							<label class="label">Cláusulas do Contratado</label>
+							<select selector model="$ctrl.data.clausulaContratado"
+								create="$ctrl.create(input, 'PROPOSTA_CLAUSULA_CONTRATADO_FORM_MODAL')" multi="true"
+								options="$ctrl.list.contratado" value-attr="id" label-attr="nome"
+								placeholder="Escolha as cláusulas do contratado que fazem parte deste projeto..."
+								dropdown-item-template="'selectPadrao'"
+								dropdown-create-template="'selector/newItem'"></select>
+						</section>
+						<section>
+							<label class="label">Documentos Obrigatórios</label>
+							<select selector model="$ctrl.data.documento"
+								create="$ctrl.create(input, 'PROPOSTA_DOCUMENTO_FORM_MODAL')" multi="true"
+								options="$ctrl.list.documento" value-attr="id" label-attr="nome"
+								placeholder="Escolha os documentos que fazem parte deste projeto..."
+								dropdown-item-template="'selectPadrao'"
+								dropdown-create-template="'selector/newItem'"></select>
+						</section>
+					</fieldset>
+					<footer>
+						<button ng-show="$ctrl.id" type="button" class="btn btn-danger pull-left"
+							ng-click="$ctrl.remove()">Excluir</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Salvar</button>
+					</footer>
+				</form>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<proposta-objetivo-form-component on-update='$ctrl.updateObjetivo(item)'></proposta-objetivo-form-component>
+<proposta-etapa-form-component on-update='$ctrl.updateEtapa(item)'></proposta-etapa-form-component>
+<proposta-custo-form-component on-update='$ctrl.updateCusto(item)'></proposta-custo-form-component>
+<proposta-clausula-contratante-form-component
+	on-update='$ctrl.updateClausulaContratante(item)'></proposta-clausula-contratante-form-component>
+<proposta-clausula-contratado-form-component
+	on-update='$ctrl.updateClausulaContratado(item)'></proposta-clausula-contratado-form-component>
+<proposta-documento-form-component on-update='$ctrl.updateDocumento(item)'></proposta-documento-form-component>
+
+<script type="text/ng-template" id="selectPadrao">
+	<strong>{{option.nome}}</strong><br><small>{{option.descricao | limitTo : 130}}{{option.descricao.length > 130 ? '...' : ''}}</small>
+</script>

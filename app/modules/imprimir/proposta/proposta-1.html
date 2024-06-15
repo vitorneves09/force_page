@@ -1,0 +1,328 @@
+<link rel="stylesheet" href="css/print.css">
+<div
+    style="min-height: 30cm; width: 21cm; font-family:Century Gothic; font-size:14px; color:#000000; background-color: white; padding: 20px; margin-top: -50px;">
+    <p ng-if="empresa.logo" class="text-center">
+        <img ng-src="{{cdnUrl + 'logo/' + empresa.logo}}" height="100" />
+    </p>
+    <br>
+    <p class="text-block text-center">
+        <b>PROPOSTA {{proposta.contrato}}
+            <span ng-show="proposta.revisao"> (Revisão: {{ proposta.revisao }})</span>
+        </b>
+    </p>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th width="100"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <b>Contratante:</b>
+                </td>
+                <td>{{proposta.cliente.nome}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>CPF/CNPJ:</b>
+                </td>
+                <td>{{proposta.documento | cpfCnpj}}</td>
+            </tr>
+            <tr ng-if="proposta.patrimonio">
+                <td>
+                    <b>Patrimônio:</b>
+                </td>
+                <td>{{proposta.patrimonio.nome}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Contratada:</b>
+                </td>
+                <td>{{empresa.razaoSocial}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>CNPJ:</b>
+                </td>
+                <td>{{empresa.documento | cpfCnpj}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <p class="text-block table-100">
+        <b>OBJETIVO</b>
+    </p>
+
+    <p class="text-block table-100" ng-bind-html="proposta.objetivo"> </p>
+
+    <br>
+
+    <p class="text-block table-100">
+        <b>
+            CUSTOS ESPECIFICADOS NESTE INSTRUMENTO
+        </b>
+    </p>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th width="30"></th>
+                <th></th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="custo in proposta.custoValor">
+                <td class="text-right">
+                    <img src="/img/folha_icone.png" width="15" height="15" />
+                </td>
+                <td style="padding: 0px 5px 0px 20px;">{{custo.custo.nome}}
+                    <div class="dots"></div>
+                </td>
+                <td style="padding: 5px 0px 0px 0px;">{{custo.valor | currency:'R$ ' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <p class="text-block table-100 text-right">
+        <b>Valor Total: {{ proposta.financeiro.valor | currency : 'R$ '}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+
+    <br>
+
+    <p class="text-block table-100">
+        <b>
+            FORMAS DE PAGAMENTO
+        </b>
+    </p>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th width="30"></th>
+                <th></th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="parcela in proposta.financeiro.parcela">
+                <td class="text-right">
+                    <img src="/img/folha_icone.png" width="15" height="15" />
+                </td>
+                <td style="padding: 0px 5px 0px 20px;">
+                    <span ng-if="parcela.financeiroFormaPagamento">{{parcela.financeiroFormaPagamento.nome}} -
+                    </span>{{parcela.porcentagem * 100 | number:0 }}%
+                    <span ng-if="parcela.propostaFormaCobrancaId != 2"> {{parcela.propostaFormaCobranca.nome |
+                        lowercase}}</span>
+                    <span ng-if="parcela.propostaFormaCobrancaId == 2"> em {{ parcela.data
+                        | date: 'dd/MM/yyyy' }}</span>
+                    <div class="dots"></div>
+                </td>
+                <td style="padding: 5px 0px 0px 0px;">{{parcela.valor | currency:'R$ '}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <div ng-if="proposta.etapaValor.length">
+        <p class="text-block table-100">
+            <b>ETAPAS</b>
+        </p>
+
+        <table class="text-block table-100">
+            <thead>
+                <tr>
+                    <th width="30"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="etapa in proposta.etapaValor">
+                    <td class="text-right">
+                        <img src="/img/folha_icone.png" width="15" height="15" />
+                    </td>
+                    <td style="padding: 5px 5px 0px 20px;">{{etapa.etapa.nome}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <div ng-if="proposta.contratadaValor.length">
+        <p class="text-block table-100">
+            <b>OBRIGAÇÕES DA CONTRATADA</b>
+        </p>
+
+        <table class="text-block table-100">
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contratado in proposta.contratadoValor;">
+                    <td style="padding-bottom: 5px;">
+                        {{alfabeto[$index]}}) &nbsp;&nbsp;{{contratado.clausulaContratado.descricao}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <div ng-if="proposta.contratanteValor.length">
+    <p class="text-block table-100">
+        <b>OBRIGAÇÕES DO CONTRATANTE</b>
+    </p>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contratante in proposta.contratanteValor;">
+                <td style="padding-bottom: 5px;">
+                    {{alfabeto[$index]}}) {{contratante.clausulaContratante.descricao}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <br>
+    <p class="text-block table-100">
+        <b>PRAZO PARA EXECUÇÃO DOS TRABALHOS</b>
+    </p>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th width="30"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-right">
+                    <img src="/img/folha_icone.png" width="15" height="15" />
+                </td>
+                <td style="padding: 5px 5px 0px 20px;">Prazo parar execução dos trabalhos é de
+                    {{proposta.prazo}} dias após a assinatura desta.</td>
+            </tr>
+            <tr>
+                <td class="text-right">
+                    <img src="/img/folha_icone.png" width="15" height="15" />
+                </td>
+                <td style="padding: 5px 5px 0px 20px;">Validade desta proposta é de 10 dias.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <div ng-if="proposta.documentoValor.length">
+        <p class="text-block table-100">
+            <b>;DOCUMENTOS OBRIGATÓRIOS</b>
+        </p>
+
+        <table class="text-block table-100">
+            <thead>
+                <tr>
+                    <th width="30"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="documento in proposta.documentoValor">
+                    <td class="text-right">
+                        <img src="/img/folha_icone.png" width="15" height="15" />
+                    </td>
+                    <td style="padding: 5px 5px 0px 20px;">{{documento.documento.nome}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="text-block table-100" ng-if="proposta.observacao">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <br>
+                    <strong>OBSERVAÇÕES</strong><br><br> <span
+                        ng-bind-html="proposta.observacao"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <br>
+    <br>
+    <p class="text-block table-100 text-right">
+        <b>{{empresa.cidade}}, {{proposta.dataEmissao | date : 'fullDate'}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <table class="text-block table-100">
+        <thead>
+            <tr>
+                <th width="50%"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p style="text-align: center;">
+                        <span>
+                            _________________________________________
+                            <br>
+                            <strong>{{empresa.razaoSocial}} </strong>
+                        </span>
+                    </p>
+
+                </td>
+                <td>
+                    <p style="text-align: center;">
+                        <span>
+                            _________________________________________
+                            <br>
+                            <b>{{proposta.cliente.nome}}</b>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <div class="text-block table-100 text-center">
+        {{empresa.razaoSocial}}<br>
+        {{empresa.endereco}}<br>
+        {{empresa.cidade}}, {{empresa.uf}}<br>
+        Telefone: {{empresa.telefone | phonebr}} <br>
+        E-mail: {{empresa.email}} <br>
+    </div>
+</div>

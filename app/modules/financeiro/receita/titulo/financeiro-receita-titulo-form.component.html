@@ -1,0 +1,194 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalReceitaForm">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">
+					<strong>Receita</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+				<div ng-show="$ctrl.data.parcelasPagas || $ctrl.data.propostaId"
+					class="alert alert-danger no-margin" role="alert">
+					<strong>Atenção!</strong> Receitas geradas pelo sistema ou existência de parcelas
+					recebidas, impedem que alterações sejam feitas.
+				</div>
+				<form class="smart-form" ng-submit="$ctrl.save()" name="form">
+					<fieldset>
+						<div class="row">
+							<section class="col col-md-8">
+								<label class="label">Cliente</label>
+								<label class="select">
+									<select selector model="$ctrl.data.clienteId" options="$ctrl.pessoasList" api="$ctrl.pessoasListApi"
+										label-attr="nome" value-attr="id" placeholder="Selecione..."></select>
+								</label>
+							</section>
+							<section class="col col-md-4">
+								<label class="label">Contrato</label>
+								<label class="select">
+									<select selector model="$ctrl.data.projetoId" options="$ctrl.projetosList"
+										label-attr="contrato" value-attr="id" placeholder="Selecione..."></select>
+								</label>
+							</section>
+						</div>
+						<div class="row">
+							<section class="col col-md-4">
+								<label class="label">Grupo da Receita</label>
+								<label class="select">
+									<select ng-model="$ctrl.data.agrupamentoId2" ng-change="$ctrl.setGrupo(2)" required>
+										<option value="">Selecione um grupo...</option>
+										<option
+											ng-repeat="grupo in $ctrl.gruposList[0] | agrupamento : $ctrl.data.parcelasPagas"
+											ng-value="grupo.id">{{grupo.nome}}</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+							<section class="col col-md-4" ng-if="$ctrl.gruposList[1].length">
+								<label class="label">&nbsp;</label>
+								<label class="select">
+									<select ng-model="$ctrl.data.agrupamentoId3" ng-change="$ctrl.setGrupo(3)" required>
+										<option value="">Selecione um grupo...</option>
+										<option
+											ng-repeat="grupo in $ctrl.gruposList[1] | agrupamento : $ctrl.data.parcelasPagas"
+											ng-value="grupo.id">{{grupo.nome}}</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+							<section class="col col-md-4" ng-if="$ctrl.gruposList[2].length">
+								<label class="label">&nbsp;</label>
+								<label class="select">
+									<select ng-model="$ctrl.data.agrupamentoId4" required>
+										<option value="">Selecione um grupo...</option>
+										<option
+											ng-repeat="grupo in $ctrl.gruposList[2] | agrupamento : $ctrl.data.parcelasPagas"
+											ng-value="grupo.id">{{grupo.nome}}</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+						</div>
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Data de Emissão</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-calendar"></i>
+									<input type="date" ng-model="$ctrl.data.dataEmissao" required>
+								</label>
+							</section>
+							<section class="col col-8">
+								<label class="label">Informações Adicionais</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-list"></i>
+									<input type="text" ng-model="$ctrl.data.obs">
+								</label>
+							</section>
+						</div>
+
+						<div class="row">
+							<section class="col col-4">
+								<label class="label">Valor</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-usd"></i>
+									<input type="text" ng-change="$ctrl.makeParcelas()" ng-model="$ctrl.data.valor"
+										ui-money-mask required>
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Número de Parcelas</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-list"></i>
+									<input type="number" ng-change="$ctrl.makeParcelas()" min="1"
+										ng-model="$ctrl.data.parcelas">
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label">Data da Primeira Parcela</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-calendar"></i>
+									<input type="date" ng-change="$ctrl.makeData()" ng-model="$ctrl.data.dataEntrada"
+										required>
+								</label>
+							</section>
+						</div>
+						<section ng-show="$ctrl.data.valor && $ctrl.data.parcelas">
+							<div class="table">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th width="85">Parcela</th>
+											<th>Valor da Parcela</th>
+											<th>Data da Parcela</th>
+											<th>Valor Recebido</th>
+											<th>Opções</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="parcela in $ctrl.data.financeiroReceitas"
+											ng-class="{danger : !parcela.dataPagamento && parcela.dataVencimento < hoje, warning : !parcela.dataPagamento && parcela.dataVencimento >= hoje, success : parcela.dataPagamento}">
+											<td>
+												<label class="input">
+													<input type="text" ng-value="$ctrl.showParcelaNumero(parcela)" disabled>
+												</label>
+											</td>
+											<td>
+												<label class="input">
+													<input type="text" ng-model="parcela.valor"
+														ng-change="$ctrl.calcTotalParcelas()" ui-money-mask>
+												</label>
+											</td>
+
+											<td>
+												<label class="input">
+													<input type="date" ng-model="parcela.dataVencimento">
+												</label>
+											</td>
+											<td>
+												<label class="input">
+													<input type="text"
+														ng-value="parcela.valorPago ? (parcela.valorPago | currency: 'R$ ') : 'A Receber'"
+														disabled>
+												</label>
+											</td>
+											<td width="70">
+												<button type="button" class="btn btn-sm btn-default"
+													ng-disabled="!parcela.dataPagamento"
+													ng-click="$ctrl.imprimirReciboReceita(parcela.id)"><i
+														class="fa fa-print"></i></button>
+												<button type="button" class="btn btn-sm btn-default"
+													ng-disabled="!parcela.dataPagamento"
+													ng-click="$ctrl.cancelarRecebimento(parcela)"><i
+														class="fa fa-undo"></i></button>
+											</td>
+										</tr>
+										<tr>
+											<td>Parcelas: {{$ctrl.data.parcelas}}</td>
+											<td colspan="2">Total do Titulo:
+												<strong>{{($ctrl.totalParcelas || 0) | currency: 'R$ '}}</strong>
+											</td>
+											<td colspan="2">Total Recebido: <strong>{{($ctrl.totalRecebido || 0) |
+													currency: 'R$ '}}</strong></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</fieldset>
+					<footer>
+						<button ng-show="!$ctrl.data.parcelasPagas && !$ctrl.data.propostaId && $ctrl.data.id"
+							type="button" class="btn btn-danger pull-left" ng-click="$ctrl.delete()">Excluir</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary"
+							ng-disabled="form.$invalid || $ctrl.data.parcelasPagas || $ctrl.data.propostaId">Salvar</button>
+					</footer>
+				</form>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalProjetoMontagem">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Montagem de Processo</strong>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                    <fieldset>
+                        <section ng-if="$ctrl.data.id">
+                            <label class="label">Nome</label>
+                            <label class="input">
+                                <i class="icon-prepend fa fa-list"></i>
+                                <input class="focus" type="text" ng-model="$ctrl.data.nome" required>
+                            </label>
+                        </section>
+                        <div ng-if="!$ctrl.data.id" class="row">
+                            <section class="col col-9">
+                                <label class="label">Nome</label>
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-list"></i>
+                                    <input type="text" ng-model="$ctrl.data.nome" required>
+                                </label>
+                            </section>
+                            <section class="col col-3">
+                                <label class="label">Prazo em Dias</label>
+                                <label class="input"> 
+                                    <i class="icon-prepend fa fa-calendar"></i>
+                                    <input type="int" min="1" ng-model="$ctrl.data.prazo" required>
+                                </label>
+                            </section>
+                        </div>
+                        <section>
+                            <label class="label">Descrição</label>
+                            <ng-quill-editor ng-model="$ctrl.data.descricao">
+                                <ng-quill-toolbar>
+                                    <div>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold">Negrito</button>
+                                            <button class="ql-italic"> Itálico</button>
+                                            <button class="ql-underline"> Underline</button>
+                                        </span>
+                                    </div>
+                                </ng-quill-toolbar>
+                            </ng-quill-editor>
+                        </section>
+                        <section>
+                            <label class="label">Responsável</label>
+                            <label class="select">
+                                <select selector model="$ctrl.data.usuarioId" api="$ctrl.usuariosListApi"
+                                    options="$ctrl.usuariosList" label-attr="nome" value-attr="id"
+                                    placeholder="Selecione..."></select>
+                            </label>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button ng-if="$ctrl.data.status != 'Concluído' && $ctrl.data.status != 'Encerrado' && $ctrl.data.status != 'Protocolado' && $ctrl.data.id && !$ctrl.data.projetoProtocoloPendencia" type="button" class="btn btn-danger pull-left"
+                            ng-click="$ctrl.delete()">Excluir</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button ng-if="$ctrl.data.status != 'Concluído' && $ctrl.data.status != 'Encerrado' && $ctrl.data.status != 'Protocolado'" type="submit" class="btn btn-primary"
+                            ng-disabled="form.$invalid">Salvar</button>
+                    </footer>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

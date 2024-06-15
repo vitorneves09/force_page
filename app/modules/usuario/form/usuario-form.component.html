@@ -1,0 +1,78 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalUsuario">
+	<div class="modal-dialog modal-lg" cg-busy="busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">
+					<strong>Usuários</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding" style="overflow: unset !important">
+
+				<form class="smart-form" ng-submit="saveUsuario(modalFormUsuario)" name="form">
+					<fieldset>
+						<section>
+							<label class="label"><b>Nome Completo</b></label>
+							<label class="input">
+								<i class="icon-prepend fa fa-user"></i>
+								<input class="focus" type="text" ng-model="modalFormUsuario.nome" required>
+							</label>
+						</section>
+
+						<div class="row">
+							<section class="col col-4">
+								<label class="label"><b>Usuario</b></label>
+								<label class="input">
+									<i class="icon-prepend fa fa-sign-in"></i>
+									<input type="text" ng-model="modalFormUsuario.usuario" ng-required="true">
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label"><b>Senha</b></label>
+								<label class="input">
+									<i class="icon-prepend fa fa-unlock-alt"></i>
+									<input type="password" ng-model="modalFormUsuario.senha"
+										placeholder="{{!modalFormUsuario.id ? 'Informe a Senha' : 'Deixe em branco para não alterar'}}"
+										ng-required="!modalFormUsuario.id">
+								</label>
+							</section>
+							<section class="col col-4">
+								<label class="label"><b>Situação</b></label>
+								<label class="select">
+									<select ng-model="modalFormUsuario.situacao" required>
+										<option value="Ativo">Ativo</option>
+										<option value="Inativo">Inativo</option>
+									</select>
+									<i></i>
+								</label>
+							</section>
+						</div>
+						<section>
+							<label class="label">Regras de Acesso</label>
+							<select selector model="modalFormUsuario.regra"	multi="true"
+								options="regrasList" placeholder="Escolha os acessos do usuário..."	require="true"></select>
+						</section>
+						<section>
+							<label class="label">Email</label>
+							<label class="input">
+								<i class="icon-prepend fa fa-envelope"></i>
+								<input type="email" ng-model="modalFormUsuario.email">
+							</label>
+						</section>
+					</fieldset>
+					<footer>
+						<button ng-if="modalFormUsuario.id" type="button" class="pull-left btn btn-danger"
+							ng-click="removeUsuario(modalFormUsuario)">Excluir</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Salvar</button>
+					</footer>
+				</form>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,47 @@
+<div class="well well-light well-sm no-padding">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-8" style="margin-top: 4px;">
+                        <span class="font-md"><b>Patrimônios</b></span>
+                    </div>
+                    <div class="col-xs-4 text-align-right">
+                        <button ng-click="$ctrl.modal('CLIENTE_PATRIMONIO_FORM_MODAL')" type="button"
+                            class="btn btn-sm btn-labeled btn-primary">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>Adicionar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td class="text-center text-bold">Nenhum patrimônio cadastrado.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data">
+                            <td width="70">
+                                <span class="btn btn-xs btn-success"
+                                    ng-click="$ctrl.modal('CLIENTE_PATRIMONIO_FORM_MODAL', item)">
+                                    <i class=" fa fa-pencil"></i>
+                                </span>
+                                <span class="btn btn-xs btn-info"
+                                    ng-click="$ctrl.modal('CLIENTE_PATRIMONIO_UPLOAD_FORM_MODAL', item)">
+                                    <i class=" fa fa-archive"></i>
+                                </span>
+                            </td>
+                            <td>{{item.nome}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<cliente-patrimonio-form-component on-update="$ctrl.load()"></cliente-patrimonio-form-component>
+<cliente-patrimonio-upload-form-component></cliente-patrimonio-upload-form-component>

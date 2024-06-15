@@ -1,0 +1,37 @@
+<div ng-show="!$ctrl.data.documentoValor.length" class="alert alert-warning no-margin" role="warning">
+	Nenhum <strong>DOCUMENTO</strong> selecionado.
+</div>
+<div ng-show="$ctrl.data.documentoValor.length" class="table">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th width="20"></th>
+				<th>Documentos Obrigatórios</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="documento in $ctrl.data.documentoValor">
+				<td>
+					<a href="" class="btn btn-danger btn-sm" ng-click="$ctrl.remove($index)">
+						<i class="fa fa-remove"></i>
+					</a>
+				</td>
+				<td>
+					<label class="select">
+						<select selector model="documento.propostaDocumentoId" create="$ctrl.create(input, $index)"
+							options="$ctrl.itemList" value-attr="id" label-attr="nome"
+							placeholder="Escolha o documento..." dropdown-create-template="'selector/newItem'"
+							dropdown-item-template="'selector/withDescription'" require="true"></select>
+					</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="margin-10">
+	<button ng-click="$ctrl.add()" type="button" class="btn btn-sm btn-labeled btn-primary">
+		<span class="btn-label">
+			<i class="fa fa-plus"></i>
+		</span>Adicionar
+</div>

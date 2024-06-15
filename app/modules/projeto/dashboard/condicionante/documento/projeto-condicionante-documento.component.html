@@ -1,0 +1,50 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalCondicionanteDocumento">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"> <strong>Arquivos - {{$ctrl.condicionante.nome}}</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+
+				<div class="smart-form">
+
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="4">Documentos da Condicionante</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!$ctrl.data.length">
+									<td class="text-center text-bold">Nenhum documento cadastrado.</td>
+								</tr>
+								<tr ng-repeat="item in $ctrl.data">
+									<td width="20">
+										<a ng-href="{{ $ctrl.urlArquivo(item) }}"
+											target="_blank" class="btn btn-xs btn-success">
+											<i class="fa fa-search"></i>
+										</a>
+									</td>
+									<td>{{item.nome}}</td>
+									<td width="30"><strong>{{item.referencia}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<footer>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					</footer>
+				</div>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

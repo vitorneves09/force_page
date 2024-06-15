@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalObjetivoProposta">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Objetivos de Proposta</strong>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+
+                <form class="smart-form" ng-submit="$ctrl.save()" name="form">
+                    <fieldset>
+                        <section>
+                            <label class="label">Nome</label>
+                            <label class="input">
+                                <i class="icon-prepend fa fa-list"></i>
+                                <input class="focus" type="text" ng-model="$ctrl.data.nome" required>
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">Descrição</label>
+                            <ng-quill-editor ng-model="$ctrl.data.descricao">
+                                <ng-quill-toolbar>
+                                    <div>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold">Negrito</button>
+                                            <button class="ql-italic"> Itálico</button>
+                                            <button class="ql-underline"> Underline</button>
+                                        </span>
+                                    </div>
+                                </ng-quill-toolbar>
+                            </ng-quill-editor>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button ng-show="$ctrl.data.id" type="button" class="btn btn-danger pull-left"
+                            ng-click="$ctrl.remove()">Excluir</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Salvar</button>
+                    </footer>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

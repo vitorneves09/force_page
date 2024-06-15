@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="relatorioXlsxModal">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Relatórios (Excel)</strong>
+                </h4>
+            </div>
+            <div class="modal-body modal-overflow no-padding">
+
+                <form class="smart-form" ng-submit="$ctrl.download()" name="form">
+                    <fieldset>
+                        <section>
+                            <label class="label">Relatório</label>
+                            <select selector model="$ctrl.data.modelo" options="$ctrl.modelosList"
+                                placeholder="Escolha um modelo..." require="true"></select>
+                        </section>
+                        <section>
+                            <label class="label">Período</label>
+                            <input date-range-picker options="$ctrl.dateOptions" clearable="true" class="form-control"
+                                type="text" ng-model="$ctrl.data.periodo" readonly>
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.download()"
+                    ng-disabled="form.$invalid">Download</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

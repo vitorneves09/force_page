@@ -1,0 +1,44 @@
+<div ng-show="!$ctrl.data.etapaValor.length" class="alert alert-warning no-margin" role="warning">
+	Nenhuma <strong>ETAPA</strong> selecionada.
+</div>
+
+<div ng-show="$ctrl.data.etapaValor.length" class="table">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th width="20"></th>
+				<th>Etapas</th>
+				<th width="200">Prazo (dias)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="etapa in $ctrl.data.etapaValor">
+				<td>
+					<a href="" class="btn btn-danger btn-sm" ng-click="$ctrl.remove($index)">
+						<i class="fa fa-remove"></i>
+					</a>
+				</td>
+				<td>
+					<label class="select">
+						<select selector model="etapa.propostaEtapaId" create="$ctrl.create(input, $index)"
+							change="$ctrl.change(newValue, $index)" options="$ctrl.itemList"
+							value-attr="id" label-attr="nome" placeholder="Escolha a etapa..."
+							dropdown-create-template="'selector/newItem'" require="true"></select>
+					</label>
+				</td>
+				<td>
+					<label class="input">
+						<input type="number" ng-model="etapa.prazo">
+					</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="margin-10">
+	<button ng-click="$ctrl.add()" type="button" class="btn btn-sm btn-labeled btn-primary">
+		<span class="btn-label">
+			<i class="fa fa-plus"></i>
+		</span>Adicionar
+</div>

@@ -1,0 +1,50 @@
+<div class="well well-light well-sm no-padding" cg-busy="$ctrl.busy">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-top: 4px;">
+                        <span class="font-md"><b>Condicionantes</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Nome</th>
+                            <th>Vencimento</th>
+                            <th width="120">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td colspan="10" class="text-center text-bold">Nenhuma condicionante neste projeto.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data"
+                            ng-class="{danger : (item.status == 'Andamento' || item.status == 'Atribuição') && item.dataVencimento < $ctrl.hoje, warning : item.status == 'Atribuição' && item.dataVencimento >= $ctrl.hoje}">
+                            <td width="72">
+                                <a ng-click="$ctrl.modal('PROJETO_CONDICIONANTE_FORM_MODAL', item)" target="_blank"
+                                    class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a href="" class="btn btn-xs btn-default"
+                                    ng-click="$ctrl.modal('CONDICIONANTE_DOCUMENTO_MODAL', item)">
+                                    <i class="fa fa-archive"></i>
+                                </a>
+                            </td>
+                            <td>{{item.nome}}</td>
+                            <td>{{item.dataVencimento | date:"dd/MM/yyyy"}}</td>
+                            <td>{{item.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<projeto-condicionante-form-component on-update="$ctrl.load()"></projeto-condicionante-form-component>
+<projeto-condicionante-documento-component></projeto-condicionante-documento-component>

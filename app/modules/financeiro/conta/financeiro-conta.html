@@ -1,0 +1,116 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Financeiro</li>
+			<li>Contas e Cofres</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<!-- row -->
+		<form ng-submit="search()">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<div class="jarviswidget-ctrls" style="height: 33px !important;">
+								<button type="submit" class="btn btn-default btn-sm">
+									<i class="fa fa-search"></i> Buscar
+								</button>
+								<button type="button" class="btn btn-default btn-sm" ng-click="search(true)">
+									<i class="fa fa-eraser"></i>
+								</button> &nbsp;
+							</div>
+							<h2>Busca Personalizada</h2>
+						</header>
+
+						<!-- widget div-->
+						<div>
+
+							<div class="widget-body">
+								<!-- content goes here -->
+								<fieldset>
+									<div class="row">
+										<section class="col-md-12">
+											<label>Contas e Cofres</label>
+											<input class="form-control" type="text" ng-model="filter.nome"
+												placeholder="Informe o nome ou parte dele">
+										</section>
+									</div>
+								</fieldset>
+								<!-- end content -->
+							</div>
+
+						</div>
+						<!-- end widget div -->
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="well well-light well-sm no-padding">
+
+			<div class="row">
+
+				<div class="col-sm-12">
+					<div class="widget-body-toolbar">
+						<div class="row">
+							<div class="col-xs-8" style="margin-top: 4px;">
+								<span class="font-md"><b>Contas e Cofres</b></span>
+							</div>
+							<div class="col-xs-4 text-align-right">
+								<button ng-click="modal('FINANCEIRO_CONTA_FORM_MODAL')" type="button"
+									class="btn btn-sm btn-labeled btn-primary">
+									<span class="btn-label">
+										<i class="fa fa-plus"></i>
+									</span>Adicionar
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="table-responsive">
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="2">
+										Nome
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!data.length">
+									<td colspan="2" class="text-center text-bold">Nenhuma conta ou cofre cadastrado.
+									</td>
+								</tr>
+								<tr ng-repeat="item in data">
+									<td width="80">
+										<a href="" class="btn btn-success btn-xs"
+											ng-click="modal('FINANCEIRO_CONTA_FORM_MODAL', item)">
+											<i class="fa fa-search"></i>
+										</a>
+										<a href="" class="btn btn-default btn-xs"
+											ng-click="modal('FINANCEIRO_CONTA_EXTRATO_MODAL', item)">
+											<i class="fa fa-list"></i>
+										</a>
+									</td>
+									<td>{{item.nome}}</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<paginacao-component on-update='load(options)' order="['nome','ASC']">
+							</paginacao-component>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<financeiro-conta-form-component on-update='load()'></financeiro-conta-form-component>
+<financeiro-conta-extrato-component></financeiro-conta-extrato-component>
+<ng-include src="'app/layout/footer.html'"></ng-include>

@@ -1,0 +1,52 @@
+<div class="well well-light well-sm no-padding">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-8" style="margin-top: 4px;">
+                        <span class="font-md"><b>Documentos</b></span>
+                    </div>
+                    <div class="col-xs-4 text-align-right">
+                        
+                            <input type="file" id="clienteDashboardFileInput" ng-files="$ctrl.addFile($files)"
+                                class="hide">
+
+                            <button ng-click="$ctrl.openFileInput()" type="button" class="btn btn-sm btn-labeled btn-primary">
+                                <span class="btn-label">
+                                    <i class="fa fa-plus"></i>
+                                </span>Adicionar
+                            </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12">
+            <div class="table-responsive p-0">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr ng-if="!$ctrl.data.length">
+                            <td class="text-center text-bold">Nenhum documento cadastrado.</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.data">
+                            <td width="70">
+                                <a ng-href="{{$ctrl.fileUrl+item.arquivo}}" target="_blank"
+                                    class="btn btn-xs btn-success">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a href="" class="btn btn-xs btn-danger" ng-click="$ctrl.remove(item)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                            <td>{{item.nome}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

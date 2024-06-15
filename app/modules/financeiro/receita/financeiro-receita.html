@@ -1,0 +1,168 @@
+<ng-include src="'app/layout/header.html'"></ng-include>
+<div id="main" role="main">
+	<div id="ribbon">
+		<!-- breadcrumb -->
+		<ol class="breadcrumb">
+			<li>Financeiro</li>
+			<li>Receitas</li>
+		</ol>
+	</div>
+	<!-- MAIN CONTENT -->
+	<div id="content" cg-busy="busy">
+		<!-- row -->
+		<form ng-submit="search()">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jarviswidget jarviswidget-color-blueDark">
+						<header>
+							<div class="jarviswidget-ctrls" style="height: 33px !important;">
+								<button type="submit" class="btn btn-default btn-sm">
+									<i class="fa fa-search"></i> Buscar
+								</button>
+								<button type="button" class="btn btn-default btn-sm" ng-click="search(true)">
+									<i class="fa fa-eraser"></i>
+								</button> &nbsp;
+							</div>
+							<h2>Busca Personalizada</h2>
+						</header>
+						<!-- widget div-->
+						<div>
+							<div class="widget-body">
+								<fieldset>
+									<div class="row">
+										<section class="col col-md-1">
+											<label>Identificação</label>
+											<input class="form-control" type="number" ng-model="filter.id">
+										</section>
+										<section class="col col-md-2">
+											<label>Contrato</label>
+											<input class="form-control" type="text" ng-model="filter.contrato">
+										</section>
+										<section class="col col-md-3">
+											<label>Cliente</label>
+											<select selector model="filter.clienteId" remote="pessoaList" label-attr="nome" value-attr="id" debounce="500"
+												placeholder="Procure e selecione..."></select>
+										</section>
+										<section class="col col-md-3">
+											<label>Situação</label>
+											<select selector model="filter.situacaoFinanceiro" options="statusList"
+												multi="true" placeholder="Todas"></select>
+										</section>
+										<section class="col-md-3">
+											<label>Vencimento</label>
+											<input date-range-picker options="dateOptions" clearable="true"
+												class="form-control" type="text" ng-model="filter.dataVencimento"
+												readonly>
+										</section>
+									</div>
+								</fieldset>
+								<!-- end content -->
+							</div>
+						</div>
+						<!-- end widget div -->
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="well well-light well-sm no-padding">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="widget-body-toolbar">
+						<div class="row">
+							<div class="col-xs-8" style="margin-top: 4px;">
+								<span class="font-md"><b>Receitas</b></span>
+							</div>
+							<div class="col-xs-4 text-align-right">
+								<button ng-click="modal('RECEITA_TITULO_FORM_MODAL')" type="button"
+									class="btn btn-sm btn-labeled btn-primary">
+									<span class="btn-label">
+										<i class="fa fa-plus"></i>
+									</span>Adicionar
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table table-hover margin-bottom-0">
+							<thead>
+								<tr>
+									<th width="70">ID</th>
+									<th colspan="2">Origem</th>
+									<th>Plano de Contas</th>
+									<th width="120" ng-click="order('dataVencimento')" class="pointer">
+										<i class="fa fa-sort"></i> Vencimento
+									</th>
+									<th width="140" ng-click="order('dataPagamento')" class="pointer">
+										<i class="fa fa-sort"></i> Data Pagamento
+									</th>
+									<th>Parcela</th>
+									<th>Valor</th>
+									<th>Valor Recebido</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!data.length">
+									<td colspan="9" class="text-center text-bold">Nenhuma receita cadastrada.</td>
+								</tr>
+								<tr ng-repeat="item in data"
+									ng-class="{danger : !item.dataPagamento && item.dataVencimento < hoje, warning : !item.dataPagamento && item.dataVencimento >= hoje }">
+									<td>#{{item.id}}</td>
+									<td width="20">
+										<a href="" class="btn btn-xs btn-success" ng-click="modal('RECEITA_TITULO_FORM_MODAL', item)">
+											<i class="fa fa-search"></i>
+										</a>
+									</td>
+									<td>
+										<span ng-if="item.contrato"><b>{{item.contrato}}</b> -
+										</span><i>{{item.cliente.nome}}</i>
+									</td>
+									<td>
+										<span ng-if="item.agrupamento2"
+											class="plano-label">{{item.agrupamento2.nome}}</span>
+										<span ng-if="item.agrupamento3"
+											class="plano-label">{{item.agrupamento3.nome}}</span>
+										<span ng-if="item.agrupamento4"
+											class="plano-label">{{item.agrupamento4.nome}}</span>
+									</td>
+									<td>
+										<a href="" class="btn btn-default btn-xs"
+											ng-click="alterarVencimentoReceita(item)">
+											{{ item.dataVencimento | date : 'dd/MM/yyyy'}}
+										</a>
+									</td>
+									<td>{{item.dataPagamento | date : 'dd/MM/yyyy'}}</td>
+									<td>{{item.numero}} / {{item.parcelas}}</td>
+									<td>
+										<b>{{item.valor | currency : 'R$ '}}</b>
+									</td>
+									<td>
+										<a ng-if="!item.dataPagamento" href="" class="btn btn-primary btn-xs"
+											ng-click="modal('RECEITA_RECEBER_FORM_MODAL',item)">
+											Receber Conta
+										</a>&nbsp;
+										<span ng-if="item.dataPagamento" rel="tooltip" data-placement="left"
+											data-html="true"
+											data-original-title="{{item.financeiroFormaPagamento.nome}}<br>{{item.financeiroConta.nome}}<br>Juros: {{item.juros | currency : 'R$ '}}<br>Acréscimo: {{item.acrescimo | currency : 'R$ '}}<br>Desconto: {{item.desconto | currency : 'R$ '}}"
+											onmouseenter="$(this).tooltip('show')"><strong>{{item.valorPago |
+												currency : 'R$ '}}</strong></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="text-center">
+							<paginacao-component on-update='load(options)' order="['dataVencimento','ASC']" filter="filter">
+							</paginacao-component>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<ng-include src="'app/layout/footer.html'"></ng-include>
+
+<financeiro-receita-titulo-form-component on-update="search()"></financeiro-receita-titulo-form-component>
+<financeiro-receita-receber-form-component on-update="search()"></financeiro-receita-receber-form-component>

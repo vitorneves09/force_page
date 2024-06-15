@@ -1,0 +1,103 @@
+<div id="recibo" style="min-height: 30cm; width: 21cm; font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000000;">
+	<p style="text-align: center;">
+		<img src="/img/produzza-logo.png" width="350" />
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 22px;">
+			<b>RECIBO DE PAGAMENTO</b>
+		</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			<b>{{recibo.id + 1000}}</b>
+		</span>
+	</p>
+	<p>
+		<span style="font-size: 18px;">
+			Recebemos de {{recibo.titulo.projeto.cliente.nome ? recibo.titulo.projeto.cliente.nome : recibo.titulo.fornecedor.nome}},
+			CPF/CNPJ: {{recibo.titulo.projeto.cliente.documento ? (recibo.titulo.projeto.cliente.documento
+			| cpfCnpj) : (recibo.titulo.fornecedor.documento | cpfCnpj) }}, a importância de {{recibo.valorPago | currency : 'R$ '}},
+			<span ng-if="recibo.titulo.projeto.contrato">referente a Parcela {{recibo.numero}} do Contrato {{recibo.titulo.projeto.contrato}},</span> com vencimento em {{recibo.dataVencimento
+			| date : 'dd/MM/yyyy'}}.
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">
+			Forma de Pagamento:
+			<b>{{recibo.metodoPagamento.nome}}</b>
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">E para clareza firmamos o presente.</span>
+	</p>
+	<p style="text-align: right;">
+		<span style="font-size: 16px;">Sidrolândia, {{hoje | date : 'fullDate'}}.</span>
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			_____________________________________________
+			<br>Assinatura e Carimbo</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			Avenida Dorvalino dos Santos, 1681 - Sidrolândia/MS - CEP 79170-000
+			<br>Tel: (67) 3272-3732 - www.grupoproduzza.com.br</span>
+	</p>
+	<br>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		</span>
+	</p>
+	<br>
+	<br>
+	<p style="text-align: center;">
+		<img src="/img/produzza-logo.png" width="350" />
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 22px;">
+			<b>RECIBO DE PAGAMENTO</b>
+		</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			<b>{{recibo.id + 1000}}</b>
+		</span>
+	</p>
+	<p>
+		<span style="font-size: 18px;">
+			Recebemos de {{recibo.titulo.projeto.cliente.nome ? recibo.titulo.projeto.cliente.nome : recibo.titulo.fornecedor.nome}},
+			CPF/CNPJ: {{recibo.titulo.projeto.cliente.documento ? (recibo.titulo.projeto.cliente.documento
+			| cpfCnpj) : (recibo.titulo.fornecedor.documento | cpfCnpj) }}, a importância de {{recibo.valorPago | currency : 'R$ '}},
+			<span ng-if="recibo.titulo.projeto.contrato">referente a Parcela {{recibo.numero}} do Contrato {{recibo.titulo.projeto.contrato}},</span> com vencimento em {{recibo.dataVencimento
+			| date : 'dd/MM/yyyy'}}.
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">
+			Forma de Pagamento:
+			<b>{{recibo.metodoPagamento.nome}}</b>
+		</span>
+	</p>
+	<p style="text-align: left;">
+		<span style="font-size: 16px;">E para clareza firmamos o presente.</span>
+	</p>
+	<p style="text-align: right;">
+		<span style="font-size: 16px;">Sidrolândia, {{hoje | date : 'fullDate'}}.</span>
+	</p>
+	<br>
+	<p style="text-align: center;">
+		<span style="font-size: 16px;">
+			_____________________________________________
+			<br>Assinatura e Carimbo</span>
+	</p>
+	<p style="text-align: center;">
+		<span style="font-size: 12px;">
+			Avenida Dorvalino dos Santos, 1681 - Sidrolândia/MS - CEP 79170-000
+			<br>Tel: (67) 3272-3732 - www.grupoproduzza.com.br</span>
+	</p>
+</div>

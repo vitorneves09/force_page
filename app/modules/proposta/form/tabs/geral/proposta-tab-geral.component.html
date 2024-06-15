@@ -1,0 +1,98 @@
+<fieldset>
+	<section>
+		<label class="label">Patrimônio</label>
+		<label class="select">
+			<select selector model="$ctrl.data.patrimonioId" options="$ctrl.patrimoniosList" label-attr="nome"
+				value-attr="id" placeholder="Escolha o patrimônio...">
+			</select>
+		</label>
+	</section>
+	<div class="row">
+		<section class="col col-4">
+			<label class="label">Número da Proposta</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-file-text"></i>
+				<input ng-disabled="$ctrl.data.id" type="text" ng-model="$ctrl.data.contrato" placeholder="{{$ctrl.numeroContrato}}">
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label text-bold">Documento Utilizado</label>
+			<label class="select">
+				<select ng-model="$ctrl.data.tipoDoc" ng-change="$ctrl.onDocumento()" required>
+					<option value="">Selecionar...</option>
+					<option value="cliente">CPF/CNPJ do Cliente
+					</option>
+					<option value="patrimonio">Documento do
+						Patrimônio
+					</option>
+					<option value="outro">Outro</option>
+				</select>
+				<i></i>
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label text-bold">Númeração do Documento</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-clipboard"></i>
+				<input type="text" ng-model="$ctrl.data.documento" ui-br-cpfcnpj-mask
+					ng-disabled="$ctrl.data.tipoDoc != 'outro'" required></label>
+		</section>
+	</div>
+	<div class="row">
+		<section class="col col-4">
+			<label class="label text-bold">Título</label>
+			<label class="select">
+				<select selector model="$ctrl.data.propostaTituloId" create="$ctrl.addPropostaTitulo(input)"
+					options="$ctrl.propostaTitulosList" dropdown-create-template="'selector/newItem'" label-attr="nome"
+					value-attr="id" placeholder="Escolha o título..."></select>
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label text-bold ">Modelo da Proposta</label>
+			<label class="select">
+				<select selector model="$ctrl.data.propostaModeloId" options="$ctrl.modeloList" label-attr="nome"
+					value-attr="id" placeholder="Escolha o modelo desta proposta..." change="$ctrl.onModelo(newValue)"
+					require="true"></select>
+			</label>
+		</section>
+		<section class="col col-4">
+			<label class="label text-bold">Prazo para a conclusão (dias)</label>
+			<label class="input">
+				<i class="icon-prepend fa fa-calendar"></i>
+				<input type="number" ng-model="$ctrl.data.prazo" required>
+			</label>
+		</section>
+	</div>
+</fieldset>
+<fieldset>
+	<section>
+		<label class="label">Objetivos</label>
+		<ng-quill-editor ng-model="$ctrl.data.objetivo">
+			<ng-quill-toolbar>
+				<div>
+					<span class="ql-formats">
+						<button class="ql-bold">Negrito</button>
+						<button class="ql-italic"> Itálico</button>
+						<button class="ql-underline"> Underline</button>
+					</span>
+				</div>
+			</ng-quill-toolbar>
+		</ng-quill-editor>
+	</section>
+</fieldset>
+<fieldset>
+	<section>
+		<label class="label">Observações</label>
+		<ng-quill-editor ng-model="$ctrl.data.observacao">
+			<ng-quill-toolbar>
+				<div>
+					<span class="ql-formats">
+						<button class="ql-bold">Negrito</button>
+						<button class="ql-italic"> Itálico</button>
+						<button class="ql-underline"> Underline</button>
+					</span>
+				</div>
+			</ng-quill-toolbar>
+		</ng-quill-editor>
+	</section>
+</fieldset>

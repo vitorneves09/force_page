@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" id="modalPropostaTimeline">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">
+					<strong>Proposta: </strong>{{$ctrl.data.contrato}}
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<form ng-if="$ctrl.registro" cg-busy="$ctrl.busy" class="smart-form" ng-submit="$ctrl.save()"
+							name="form">
+							<fieldset>
+								<section>
+									<label class="label"><b>Informações</b></label>
+									<label class="textarea">
+										<i class="icon-prepend fa fa-list"></i>
+										<textarea name="informacoes" rows="5" ng-model="$ctrl.form.memorando"
+											required></textarea>
+									</label>
+								</section>
+							</fieldset>
+						</form>
+						<div ng-if="!$ctrl.registro">
+							<!-- Timeline Content -->
+							<div class="smart-timeline">
+								<ul class="smart-timeline-list">
+									<li ng-repeat="item in $ctrl.data.timeline | orderBy : '-id'">
+										<div class="smart-timeline-time">
+											<span class="text-bold">&nbsp;&nbsp;&nbsp;&nbsp;{{item.dataDoOcorrido | date : 'dd/MM/yyyy'}}</span>
+										</div>
+										<div class="smart-timeline-content">
+											
+												{{item.memorando}}
+											
+										</div>
+									</li>
+									<li ng-if="!$ctrl.data.timeline.length">
+										<div class="smart-timeline-time">
+											<small></small>
+										</div>
+										<div class="smart-timeline-content">
+											<p>
+												<a href=""><strong>Sem informações!</strong></a>
+											</p>
+											<p>
+												Ainda não foram inseridas informações neste proposta.
+											</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<!-- END Timeline Content -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button ng-show="!$ctrl.registro" type="button" class="btn btn-primary pull-left"
+					ng-click="$ctrl.chengeRegistro()">Adicionar</button>
+				<button ng-show="$ctrl.registro" type="button" class="btn btn-primary" ng-disabled="form.$invalid"
+					ng-click="$ctrl.save()">Salvar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

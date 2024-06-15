@@ -1,0 +1,115 @@
+<div class="well well-light well-sm no-padding no-margin" >
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="widget-body-toolbar">
+				<div class="row">
+
+					<div class="col-xs-3" style="margin-top: 4px;">
+						<span class="font-md"><b>Receitas</b></span>
+					</div>
+					<div class="col-xs-9" style="display: flex; justify-content: flex-end;">
+						<div class="margin-right-5">
+							<ul class="mini-pagination" style="margin: 0 !important; display:block;" uib-pagination
+								total-items="$ctrl.totalItems" ng-model="$ctrl.currentPage"
+								items-per-page="$ctrl.itemsPerPage" previous-text='&#9664' next-text="&#9654"
+								ng-change="$ctrl.change()" boundary-link-numbers="false" max-size="1"></ul>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								{{$ctrl.filter.situacaoFinanceiro[0] || 'Tudo'}} &nbsp;<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" ng-click="$ctrl.search({})">Tudo</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({situacaoFinanceiro: ['Quitadas']})">Quitadas</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({situacaoFinanceiro: ['A Vencer']})">A Vencer</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"
+										ng-click="$ctrl.search({situacaoFinanceiro: ['Vencidas']})">Vencidas</a>
+								</li>
+							</ul>
+						</div>
+						<span class="divider-dash">|</span>
+						<button ng-click="$ctrl.modal('RECEITA_TITULO_FORM_MODAL')" type="button"
+							class="btn btn-sm btn-labeled btn-primary ">
+							<span class="btn-label">
+								<i class="fa fa-plus"></i>
+							</span>Adicionar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="table-responsive p-0">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th width="70">ID</th>
+							<th colspan="2">Contrato</th>
+							<th width="120" ng-click="$ctrl.order('dataVencimento')" class="pointer">
+								<i class="fa fa-sort"></i> Vencimento
+							</th>
+							<th width="140" ng-click="$ctrl.order('dataPagamento')" class="pointer">
+								<i class="fa fa-sort"></i> Data Pagamento
+							</th>
+							<th width="80">Parcela</th>
+							<th width="150">Valor</th>
+							<th width="150">Valor Recebido</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-if="!$ctrl.data.length">
+							<td colspan="9" class="text-center text-bold">Nenhuma receita cadastrada.</td>
+						</tr>
+						<tr ng-repeat="item in $ctrl.data"
+							ng-class="{danger : !item.dataPagamento && item.dataVencimento < $ctrl.hoje, warning : !item.dataPagamento && item.dataVencimento >= $ctrl.hoje }">
+							<td>#{{item.id}}</td>
+							<td width="20">
+								<a href="" class="btn btn-xs btn-success"
+									ng-click="$ctrl.modal('RECEITA_TITULO_FORM_MODAL', item)">
+									<i class="fa fa-search"></i>
+								</a>
+							</td>
+							<td>
+								<span ng-if="item.contrato"><strong>{{item.contrato}}</strong></span> <span
+									ng-if="!item.contrato">Nenhum</span>
+							</td>
+							<td>
+								<a href="" class="btn btn-default btn-xs"
+									ng-click="$ctrl.alterarVencimentoReceita(item)">
+									{{ item.dataVencimento | date : 'dd/MM/yyyy'}}
+								</a>
+							</td>
+							<td>{{item.dataPagamento | date : 'dd/MM/yyyy'}}</td>
+							<td>{{item.numero}} / {{item.parcelas}}</td>
+							<td>
+								<b>{{item.valor | currency : 'R$ '}}</b>
+							</td>
+							<td>
+								<a ng-if="!item.dataPagamento" href="" class="btn btn-default btn-xs"
+									ng-click="$ctrl.modal('RECEITA_RECEBER_FORM_MODAL',item)">
+									Receber Conta
+								</a>&nbsp;
+								<span ng-if="item.dataPagamento" rel="tooltip" data-placement="left" data-html="true"
+									data-original-title="{{item.financeiroFormaPagamento.nome}}<br>{{item.financeiroConta.nome}}<br>Juros: {{item.juros | currency : 'R$ '}}<br>Acréscimo: {{item.acrescimo | currency : 'R$ '}}<br>Desconto: {{item.desconto | currency : 'R$ '}}"
+									onmouseenter="$(this).tooltip('show')"><strong>{{item.valorPago |
+										currency : 'R$ '}}</strong></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<financeiro-receita-titulo-form-component on-update="$ctrl.load()"></financeiro-receita-titulo-form-component>
+<financeiro-receita-receber-form-component on-update="$ctrl.load()"></financeiro-receita-receber-form-component>

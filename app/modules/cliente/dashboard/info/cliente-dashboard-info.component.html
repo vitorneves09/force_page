@@ -1,0 +1,68 @@
+<div class="well well-light well-sm no-padding">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="widget-body-toolbar">
+                <div class="row">
+                    <div class="col-xs-8" style="margin-top: 3px;">
+                        <span class="font-md"><b>{{$ctrl.data.nome}}</b></span>
+                    </div>
+                    <div class="col-xs-4 text-align-right">
+                        <button ng-click="$ctrl.modal('CLIENTE_FORM_MODAL')" type="button"
+                            class="btn btn-sm btn-labeled btn-primary">
+                            <span class="btn-label">
+                                <i class="fa fa-pencil"></i>
+                            </span>Editar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+
+            <div class="row">
+                <div class="padding-10">
+                    <div class="col-sm-12">
+                        <p>
+                            <span class="one-line" ng-if="$ctrl.data.endereco">
+                                <b>Endereço:</b>
+                                <span ng-if="$ctrl.data.endereco">{{$ctrl.data.endereco}}
+                                    - </span>
+                                <span ng-if="$ctrl.data.bairro">{{$ctrl.data.bairro}}
+                                    - </span>
+                                <span ng-if="$ctrl.data.cidade">{{$ctrl.data.cidade}}
+                                    - </span>
+                                <span ng-if="$ctrl.data.uf">{{$ctrl.data.uf}}</span>
+                            </span>
+                            <span class="one-line" ng-bind-html="$ctrl.data.telResidencial ? '<b>Telefone Residencial:</b>
+																						' + ($ctrl.data.telResidencial | brPhoneNumber) : ''">
+                            </span>
+                            <span class="one-line" ng-bind-html="$ctrl.data.telComercial ? '<b>Telefone Comercial:</b>
+																						' + ($ctrl.data.telComercial | brPhoneNumber): ''">
+                            </span>
+                            <span class="one-line" ng-bind-html="$ctrl.data.telCelular ? '<b>Celular:</b>
+																						' + ($ctrl.data.telCelular | brPhoneNumber) : ''">
+                            </span>
+                            <span class="one-line" ng-bind-html="$ctrl.data.email ? '<b>Email:</b>
+																							' + $ctrl.data.email : ''">
+                            </span>
+
+                            <span class="one-line">
+                                <b>Documento:</b>
+                                {{$ctrl.data.documento | cpfCnpj}}
+                            </span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<cliente-form-component on-update="$ctrl.load()"></cliente-form-component>

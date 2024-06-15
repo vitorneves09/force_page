@@ -1,0 +1,18 @@
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<span class="txt-color-white">
+				Flowforce
+				<span class="hidden-xs">- Todos os direitos reservados</span>
+			</span>
+		</div>
+	</div>
+</div>
+<!-- END PAGE FOOTER -->
+<script type="text/ng-template" id="selector/newItem">
+	Criar: <strong>{{search}}</strong>
+</script>
+<script type="text/ng-template" id="selector/withDescription">
+	<strong>{{option.nome}}</strong><br><small>{{option.descricao | limitTo : 130}}{{option.descricao.length > 130 ? '...' : ''}}</small>
+</script>

@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalFinanceiroContaForm">
+    <div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <strong>Contas e Cofres</strong>
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+				<form class="smart-form" ng-submit="$ctrl.save()" name="form">
+					<fieldset>
+						<div class="row">
+							<section class="col" ng-class="{'col-8': !$ctrl.data.id,'col-lg-12': $ctrl.data.id}">
+								<label class="label">Identificação da Conta</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-list"></i>
+									<input class="focus" type="text" ng-model="$ctrl.data.nome" required>
+								</label>
+							</section>
+                            <section  ng-if="!$ctrl.data.id" class="col col-4">
+								<label class="label">Saldo Inicial</label>
+								<label class="input">
+									<i class="icon-prepend fa fa-usd"></i>
+									<input type="text" ng-model="$ctrl.data.saldo" ui-money-mask required>
+								</label>
+							</section>
+						</div>
+					</fieldset>
+					<footer>
+						<button ng-if="$ctrl.data.id" type="button" class="btn btn-danger pull-left" ng-click="$ctrl.remove()">Excluir
+							Conta</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Salvar</button>
+					</footer>
+				</form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

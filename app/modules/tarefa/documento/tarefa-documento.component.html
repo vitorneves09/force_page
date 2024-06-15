@@ -1,0 +1,104 @@
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalTarefaDocumento">
+	<div class="modal-dialog modal-lg" cg-busy="$ctrl.busy">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"> <strong>Arquivos - {{$ctrl.tarefa.nome}}</strong>
+				</h4>
+			</div>
+			<div class="modal-body no-padding">
+
+				<div class="smart-form">
+
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="3">Documentos Enviados</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-if="!$ctrl.data.length">
+									<td class="text-center text-bold">Nenhum documento cadastrado.</td>
+								</tr>
+								<tr ng-repeat="item in $ctrl.data">
+									<td width="50">
+										<a ng-href="{{$ctrl.fileUrl+$ctrl.tarefa.clienteId+'/projetos/'+$ctrl.tarefa.projetoId+'/documentos/'+item.arquivo}}"
+											target="_blank" class="btn btn-xs btn-success">
+											<i class="fa fa-search"></i>
+										</a>
+										<a href="" class="btn btn-xs btn-danger" ng-click="$ctrl.remove(item)">
+											<i class="fa fa-remove"></i>
+										</a>
+									</td>
+									<td>{{item.nome}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div ng-if="$ctrl.documentoPlanejamento.length" class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="3">Documentos do Planejamento</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in $ctrl.documentoPlanejamento">
+									<td width="20">
+										<a ng-if="item.arquivo"
+											ng-href="{{$ctrl.fileUrl+$ctrl.tarefa.clienteId+'/projetos/'+$ctrl.tarefa.projetoId+'/planejamentos/'+item.arquivo}}"
+											target="_blank" class="btn btn-xs btn-success">
+											<i class="fa fa-search"></i>
+										</a>
+										<a ng-if="!item.arquivo" href="" class="btn btn-xs btn-success"
+											ng-click="item.show = !item.show">
+											<i class="fa" ng-class="{'fa-plus':!item.show,'fa-minus':item.show}"></i>
+										</a>
+									</td>
+									<td>{{item.titulo}}<div style="margin-top:15px; margin-bottom: 5px;" ng-bind-html="item.descricao" ng-if="item.show"></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div ng-if="$ctrl.documentoProjeto.length" class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th colspan="3">Documentos do Projeto</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in $ctrl.documentoProjeto">
+									<td width="20">
+										<a ng-href="{{$ctrl.fileUrl+$ctrl.tarefa.clienteId+'/projetos/'+$ctrl.tarefa.projetoId+'/documentos/'+item.arquivo}}"
+											target="_blank" class="btn btn-xs btn-success">
+											<i class="fa fa-search"></i>
+										</a>
+									</td>
+									<td>{{item.nome}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<footer>
+						<input type="file" id="tarefaDocumentoFileInput" ng-files="$ctrl.addFile($files)" class="hide">
+						<button type="button" class="btn btn-success pull-left" ng-click="$ctrl.openFileInput()">
+							Adicionar
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					</footer>
+				</div>
+
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

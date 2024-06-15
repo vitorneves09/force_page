@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Century Gothic"), local("CenturyGothic"), url(../fonts/century-gothic.woff2) format("woff2");
+}
+
+.table-100 {
+  width: 100%;
+}
+
+.text-block {
+  border: transparent solid 1px;
+}
+
+.text-block:hover {
+  border-color: #000000;
+}
+
+table tr td {
+  height: 25px;
+}
+
+.dots {
+  border-bottom: #000000 dotted 1px;
+  width: 100%;
+  float: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-td-center {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.txt-rigth {
+  text-align: right;
+}
+
+.p-b-20 {
+  padding-bottom: 20px;
+}
+
+.p-t-b-20 {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.pt-20 {
+  padding-top: 20px !important;
+}
+
+.small-desc {
+  padding-left: 45px;
+  font-size: smaller;
+}
