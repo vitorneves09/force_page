@@ -1,0 +1,23 @@
+{
+  "name": "page",
+  "version": "1.0.0",
+  "description": "> Configurações de dominio\r 1. Adicione ao DNS um wildcard apontando para o host. Ex: *.flowforce.com.br.\r ##\r > Page\r 1. Configure o arquivo `config/config.js` com a rota da API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -a localhost -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorneves09/force_page.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitorneves09/force_page/issues"
+  },
+  "homepage": "https://github.com/vitorneves09/force_page#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
